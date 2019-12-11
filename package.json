@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "build": "webpack --mode production",
-    "dev": "webpack --watch --open --mode development"
+    "dev": "webpack --watch --watch-poll --open --mode development"
   },
   "dependencies": {
     "@babel/core": "^7.7.5",
