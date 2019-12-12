@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "nodemon ./bin/www",
     "build": "webpack --mode production",
     "dev": "webpack --watch --watch-poll --open --mode development"
   },
@@ -21,6 +21,7 @@
     "morgan": "~1.9.1",
     "mysql": "^2.17.1",
     "mysql2": "^2.0.2",
+    "nodemon": "^2.0.2",
     "passport": "^0.4.1",
     "passport-github": "^1.1.0",
     "react": "^16.12.0",

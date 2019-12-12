@@ -1,4 +1,4 @@
-import { createElement as h, useState } from 'react';
+import { useState } from 'react';
 
 export const useForm = cb => {
   const [values, setValues] = useState({});

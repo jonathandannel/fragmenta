@@ -3,16 +3,18 @@ import { TextField, Button, Container, Typography } from '@material-ui/core';
 import { loginFormStyles } from './styles';
 import { useForm } from '../hooks';
 
-const register = fieldValues => {
-  // Post
-  fetch('');
-  console.log(fieldValues);
-};
-
 const LoginForm = () => {
-  const styles = loginFormStyles();
+  const requestRegistration = fieldValues => {
+    fetch('/users/register', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(fieldValues),
+    }).then(() => setSubmissionComplete(true));
+  };
 
-  const { handleChange, handleSubmit } = useForm(submitForm);
+  const styles = loginFormStyles();
+  const [submissionComplete, setSubmissionComplete] = useState(false);
+  const { handleChange, handleSubmit } = useForm(requestRegistration);
 
   return h(
     'form',
