@@ -19,16 +19,17 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
-  User.alreadyExists = async ({ username, email }) => {
+  User.checkIfExists = ({ username, email }) => {
     // Where username = username OR email = email
     const or = Sequelize.Op.or;
-    const results = await User.findOne({
+    return User.findOne({
       where: {
         [or]: [{ username }, { email }],
       },
+    }).then(found => {
+      if (!found) return false;
+      return true;
     });
-    if (results) return true;
-    return false;
   };
 
   User.associate = function(models) {};

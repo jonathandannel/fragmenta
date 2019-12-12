@@ -9,7 +9,12 @@ const LoginForm = () => {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(fieldValues),
-    }).then(res => console.log(res));
+    })
+      .then(res => res.json())
+      .then(({ message, success }) => {
+        console.log(message);
+        console.log(success);
+      });
   };
 
   const styles = loginFormStyles();
