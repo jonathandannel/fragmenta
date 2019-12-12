@@ -1,7 +1,7 @@
 import { createElement as h, useState, useEffect } from 'react';
 import { TextField, Button, Container, Typography } from '@material-ui/core';
 import { loginFormStyles } from './styles';
-import { useForm } from '../hooks';
+import useForm from '../hooks/useForm';
 
 const LoginForm = () => {
   const requestRegistration = fieldValues => {
@@ -12,13 +12,15 @@ const LoginForm = () => {
     })
       .then(res => res.json())
       .then(({ message, success }) => {
-        console.log(message);
-        console.log(success);
+        setSubmissionStatus({
+          message,
+          success,
+        });
       });
   };
 
   const styles = loginFormStyles();
-  const [submissionComplete, setSubmissionComplete] = useState(false);
+  const [submissionStatus, setSubmissionStatus] = useState(false);
   const { handleChange, handleSubmit } = useForm(requestRegistration);
 
   return h(
@@ -42,6 +44,8 @@ const LoginForm = () => {
       placeholder: 'Password',
       onChange: handleChange,
     }),
+    submissionStatus &&
+      h(Typography, { variant: 'caption' }, submissionStatus.message),
     h(
       'div',
       { className: styles.buttonContainer },

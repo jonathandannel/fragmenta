@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const useForm = cb => {
+const useForm = cb => {
   const [values, setValues] = useState({});
 
   const handleChange = ({ target: { name, value } }) => {
@@ -21,3 +21,5 @@ export const useForm = cb => {
     values,
   };
 };
+
+export default useForm;
