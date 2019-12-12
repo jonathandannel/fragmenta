@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
     {},
   );
 
-  User.createNew = async ({ username, email, password }) => {
-    await User.create({
+  User.createNew = ({ username, email, password }) => {
+    User.create({
       username,
       email,
       password,
