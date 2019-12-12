@@ -21,13 +21,8 @@ const LoginForm = () => {
     { className: styles.formContainer, onSubmit: handleSubmit },
     h(Typography, { variant: 'h4', className: styles.title }, 'Register '),
     h(TextField, {
-      name: 'firstName',
-      placeholder: 'First name',
-      onChange: handleChange,
-    }),
-    h(TextField, {
-      name: 'lastName',
-      placeholder: 'Last name',
+      name: 'username',
+      placeholder: 'Username',
       onChange: handleChange,
     }),
     h(TextField, {
