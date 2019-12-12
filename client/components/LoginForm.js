@@ -21,7 +21,9 @@ const LoginForm = () => {
 
   const styles = loginFormStyles();
   const [submissionStatus, setSubmissionStatus] = useState(false);
-  const { handleChange, handleSubmit } = useForm(requestRegistration);
+  const { handleChange, handleSubmit, validationErrors } = useForm(
+    requestRegistration,
+  );
 
   return h(
     'form',
@@ -46,10 +48,21 @@ const LoginForm = () => {
     }),
     submissionStatus &&
       h(Typography, { variant: 'caption' }, submissionStatus.message),
+    validationErrors.length
+      ? validationErrors.map(v => h(Typography, { variant: 'caption' }, v))
+      : null,
     h(
       'div',
       { className: styles.buttonContainer },
-      h(Button, { type: 'submit', className: styles.button }, 'Register'),
+      h(
+        Button,
+        {
+          disabled: validationErrors > 0,
+          type: 'submit',
+          className: styles.button,
+        },
+        'Register',
+      ),
     ),
   );
 };
