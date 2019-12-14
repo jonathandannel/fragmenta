@@ -3,7 +3,7 @@ import { TextField, Button, Container, Typography } from '@material-ui/core';
 import { loginFormStyles } from './styles';
 import useForm from '../hooks/useForm';
 
-const LoginForm = () => {
+const Register = () => {
   const requestRegistration = fieldValues => {
     fetch('/users/register', {
       method: 'post',
@@ -67,4 +67,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default Register;
