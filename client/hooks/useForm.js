@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const useForm = (cb, formType) => {
+const useForm = ({ cb, formType }) => {
   const [values, setValues] = useState({});
   const [validationErrors, setValidationErrors] = useState([]);
 
