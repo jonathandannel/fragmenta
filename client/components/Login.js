@@ -21,7 +21,10 @@ const Login = () => {
 
   const styles = loginFormStyles();
   const [submissionStatus, setSubmissionStatus] = useState(false);
-  const { handleChange, handleSubmit } = useForm(requestLogin);
+  const { handleChange, handleSubmit } = useForm({
+    cb: requestLogin,
+    formType: 'login',
+  });
 
   return h(
     'form',

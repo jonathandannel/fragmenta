@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const useForm = cb => {
+const useForm = (cb, formType) => {
   const [values, setValues] = useState({});
   const [validationErrors, setValidationErrors] = useState([]);
 
@@ -37,16 +37,19 @@ const useForm = cb => {
 
   const handleSubmit = e => {
     e.preventDefault();
+
     setValidationErrors([]);
 
     const errors = [];
 
-    for (let name in values) {
-      const error = validateField({
-        name,
-        value: values[name],
-      });
-      if (error !== null) errors.push(error);
+    if (formType === 'register') {
+      for (let name in values) {
+        const error = validateField({
+          name,
+          value: values[name],
+        });
+        if (error !== null) errors.push(error);
+      }
     }
 
     if (!errors.length) {

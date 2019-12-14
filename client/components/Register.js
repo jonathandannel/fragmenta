@@ -21,9 +21,10 @@ const Register = () => {
 
   const styles = loginFormStyles();
   const [submissionStatus, setSubmissionStatus] = useState(false);
-  const { handleChange, handleSubmit, validationErrors } = useForm(
-    requestRegistration,
-  );
+  const { handleChange, handleSubmit, validationErrors } = useForm({
+    cb: requestRegistration,
+    formType: 'register',
+  });
 
   return h(
     'form',
