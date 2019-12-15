@@ -12,7 +12,7 @@ const Login = () => {
     })
       .then(res => res.json())
       .then(({ message, success, token }) => {
-        localStorage.setItem('token', token);
+        localStorage.setItem('jwt', token);
         console.log(token);
         setSubmissionStatus({
           message,
@@ -62,6 +62,15 @@ const Login = () => {
         },
         'Log in',
       ),
+
+      h(Button, { onClick: () => {
+        fetch('/protected', {
+          method: 'get',
+          headers: { 'authorization': localStorage.getItem('jwt') },
+        })
+          .then(res => res.json())
+          .then(res => console.log(res))
+      }}, 'Click')
     ),
   );
 };
