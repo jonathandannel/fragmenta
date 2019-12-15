@@ -7,7 +7,7 @@ const useRegisterForm = (cb) => {
 	const handleChange = ({ target: { name, value } }) => {
 		setValues({
 			...values,
-			[name]: value.trim(),
+			[name]: value,
 		});
 	};
 
@@ -17,24 +17,22 @@ const useRegisterForm = (cb) => {
 
 		const trimmed = value.trim();
 
-		if (trimmed === '') {
-			error = 'All fields are required';
-		}
-
 		if (name === 'password') {
 			if (trimmed.length < 4 || trimmed.length > 20) {
 				error = 'Password must be between 4 and 20 characters';
-			}
-			if (!validRegex.test(trimmed)) {
-				error = 'Passwords may only contain alphanumeric characters';
+			} else {
+				if (!validRegex.test(trimmed)) {
+					error = 'Passwords may only contain alphanumeric characters';
+				}
 			}
 		}
 		if (name === 'username') {
 			if (trimmed.length < 4 || trimmed.length > 20) {
 				error = 'Username must be between 4 and 20 characters';
-			}
-			if (!validRegex.test(trimmed)) {
-				error = 'Username may only contain alphanumeric characters';
+			} else {
+				if (!validRegex.test(trimmed)) {
+					error = 'Username may only contain alphanumeric characters';
+				}
 			}
 		}
 		return error;
@@ -44,19 +42,25 @@ const useRegisterForm = (cb) => {
 		e.preventDefault();
 		setValidationErrors([]);
 
-		const errors = [];
+		if (Object.keys(values).length !== 3) {
+			setValidationErrors([ ...validationErrors, 'All fields are mandatory' ]);
+			return;
+		}
+
 		for (let name in values) {
 			const error = validateField({
 				name,
 				value: values[name],
 			});
-			if (error !== null) errors.push(error);
+			if (error !== null) {
+				setValidationErrors([ ...validationErrors, error ]);
+			}
 		}
 
-		if (!errors.length) {
-			cb(values);
+		if (validationErrors.length) {
+			return;
 		} else {
-			setValidationErrors(errors);
+			cb(values);
 		}
 	};
 

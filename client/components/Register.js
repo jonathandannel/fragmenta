@@ -40,7 +40,9 @@ const Register = () => {
 			onChange: handleChange,
 		}),
 		submissionStatus && h(Typography, { variant: 'caption' }, submissionStatus.message),
-		validationErrors.length ? validationErrors.map((v) => h(Typography, { variant: 'caption' }, v)) : null,
+		validationErrors.length
+			? validationErrors.map((v) => h(Typography, { color: 'error', variant: 'caption' }, v))
+			: null,
 		h(
 			'div',
 			{ className: styles.buttonContainer },

@@ -12,12 +12,7 @@ const useLoginForm = (cb) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-
-		if (!errors.length) {
-			cb(values);
-		} else {
-			setValidationErrors(errors);
-		}
+		cb(values);
 	};
 
 	return {
