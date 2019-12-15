@@ -4,9 +4,9 @@ import Login from './Login';
 import { appStyles } from './styles';
 
 const App = () => {
-  const styles = appStyles();
+	const styles = appStyles();
 
-  return h('div', { className: styles.main }, h(Register), h(Login));
+	return h('div', { className: styles.main }, h(Register), h(Login));
 };
 
 export default App;
