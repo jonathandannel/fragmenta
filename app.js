@@ -4,8 +4,9 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const appRouter = require('./routes/index');
+const authRouter = require('./routes/auth');
+const protectedRouter = require('./routes/protected');
 
 const app = express();
 
@@ -15,8 +16,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/yumiko');
+app.use('/', appRouter);
+app.use('/auth', authRouter);
+app.use('/protected', protectedRouter);
 
 module.exports = app;

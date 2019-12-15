@@ -5,7 +5,7 @@ import useForm from '../hooks/useForm';
 
 const Login = () => {
   const requestLogin = fieldValues => {
-    fetch('/users/login', {
+    fetch('/auth/login', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(fieldValues),

@@ -5,7 +5,7 @@ import useForm from '../hooks/useForm';
 
 const Register = () => {
   const requestRegistration = fieldValues => {
-    fetch('/users/register', {
+    fetch('/auth/register', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(fieldValues),
