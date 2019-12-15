@@ -1,24 +1,24 @@
-export const register = (fieldValues) =>
-	fetch('/auth/register', {
-		method: 'post',
-		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify(fieldValues),
-	})
-		.then((res) => res.json())
-		.then(({ message, success }) => ({ message, success }));
+export const register = fieldValues =>
+  fetch("/auth/register", {
+    method: "post",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(fieldValues)
+  })
+    .then(res => res.json())
+    .then(({ message, success }) => ({ message, success }));
 
-export const login = (fieldValues) =>
-	fetch('/auth/login', {
-		method: 'post',
-		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify(fieldValues),
-	})
-		.then((res) => res.json())
-		.then(({ message, success, token }) => {
-			localStorage.setItem('jwt', token);
-			return {
-				message,
-				success,
-				token,
-			};
-		});
+export const login = fieldValues =>
+  fetch("/auth/login", {
+    method: "post",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(fieldValues)
+  })
+    .then(res => res.json())
+    .then(({ message, success, token }) => {
+      localStorage.setItem("jwt", token);
+      return {
+        message,
+        success,
+        token
+      };
+    });

@@ -1,24 +1,24 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-const useLoginForm = (cb) => {
-	const [ values, setValues ] = useState({});
+const useLoginForm = cb => {
+  const [values, setValues] = useState({});
 
-	const handleChange = ({ target: { name, value } }) => {
-		setValues({
-			...values,
-			[name]: value.trim(),
-		});
-	};
+  const handleChange = ({ target: { name, value } }) => {
+    setValues({
+      ...values,
+      [name]: value.trim()
+    });
+  };
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		cb(values);
-	};
+  const handleSubmit = e => {
+    e.preventDefault();
+    cb(values);
+  };
 
-	return {
-		handleChange,
-		handleSubmit,
-	};
+  return {
+    handleChange,
+    handleSubmit
+  };
 };
 
 export default useLoginForm;
