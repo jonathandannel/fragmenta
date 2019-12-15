@@ -11,10 +11,13 @@ const Login = () => {
       body: JSON.stringify(fieldValues),
     })
       .then(res => res.json())
-      .then(({ message, success }) => {
+      .then(({ message, success, token }) => {
+        localStorage.setItem('token', token);
+        console.log(token);
         setSubmissionStatus({
           message,
           success,
+          token,
         });
       });
   };
@@ -42,7 +45,12 @@ const Login = () => {
       onChange: handleChange,
     }),
     submissionStatus &&
-      h(Typography, { variant: 'caption' }, submissionStatus.message),
+      h(
+        Typography,
+        { variant: 'caption' },
+        submissionStatus.message,
+        submissionStatus.token,
+      ),
     h(
       'div',
       { className: styles.buttonContainer },

@@ -1,11 +1,15 @@
 const User = require('../models').User;
 const express = require('express');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+const checkToken = require('../jwt').checkToken;
 
 const router = express.Router();
 
 router.post('/register', (req, res, next) => {
   const { username, email, password } = req.body;
-  User.checkIfExists({ username, email }).then(found => {
+  User.alreadyExists({ username, email }).then(found => {
     if (!found) {
       User.createNew({ username, email, password });
       res
@@ -36,24 +40,38 @@ router.post('/login', (req, res, next) => {
     },
   }).then(user => {
     if (user) {
-      console.log(user);
-      // Do passwords match?
+      const hash = user.dataValues.password;
+      bcrypt.compare(password, hash, (err, result) => {
+        if (err || !result) {
+          res
+            .status(500)
+            .json({
+              message: 'Incorrect password',
+              success: false,
+            })
+            .end();
+        } else {
+          // Create token
+          const token = jwt.sign({ username }, process.env.JWT_SECRET, {
+            expiresIn: '2d',
+            issuer: 'myriad',
+          });
 
-      // ASSIGN TOKEN
-
-      res
-        .status(200)
-        .json({
-          message: 'User logged in successfully',
-          success: true,
-        })
-        .end();
+          res
+            .status(200)
+            .json({
+              message: 'User logged in successfully',
+              success: true,
+              token: token,
+            })
+            .end();
+        }
+      });
     } else {
-      console.log('user not found');
       res
         .status(500)
         .json({
-          message: 'Username or password does not exist',
+          message: 'User does not exist',
           success: false,
         })
         .end();

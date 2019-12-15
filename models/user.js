@@ -25,8 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
-  User.checkIfExists = ({ username, email }) => {
-    // Where username = username OR email = email
+  User.alreadyExists = ({ username, email }) => {
     const or = Sequelize.Op.or;
     return User.findOne({
       where: {
