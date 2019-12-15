@@ -1,7 +1,7 @@
 import { createElement as h, useState, useEffect } from 'react';
 import { TextField, Button, Container, Typography } from '@material-ui/core';
 import { loginFormStyles } from './styles';
-import useForm from '../hooks/useForm';
+import useRegisterForm from '../hooks/useRegisterForm';
 import { register } from '../api';
 
 const Register = () => {
@@ -16,10 +16,7 @@ const Register = () => {
 
 	const styles = loginFormStyles();
 	const [ submissionStatus, setSubmissionStatus ] = useState(false);
-	const { handleChange, handleSubmit, validationErrors } = useForm({
-		cb: requestRegistration,
-		formType: 'register',
-	});
+	const { handleChange, handleSubmit, validationErrors } = useRegisterForm(requestRegistration);
 
 	return h(
 		'form',

@@ -54,4 +54,7 @@ export const appStyles = makeStyles(() => ({
 		display: 'flex',
 		flexDirection: 'column',
 	},
+	appBar: {
+		height: '2rem',
+	},
 }));

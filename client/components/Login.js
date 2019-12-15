@@ -1,7 +1,7 @@
 import { createElement as h, useState, useEffect } from 'react';
 import { TextField, Button, Container, Typography, lighten } from '@material-ui/core';
 import { loginFormStyles } from './styles';
-import useForm from '../hooks/useForm';
+import useLoginForm from '../hooks/useLoginForm';
 import { login } from '../api';
 
 const Login = () => {
@@ -16,10 +16,7 @@ const Login = () => {
 
 	const styles = loginFormStyles();
 	const [ submissionStatus, setSubmissionStatus ] = useState(false);
-	const { handleChange, handleSubmit } = useForm({
-		cb: requestLogin,
-		formType: 'login',
-	});
+	const { handleChange, handleSubmit } = useLoginForm(requestLogin);
 
 	return h(
 		'form',
@@ -47,20 +44,6 @@ const Login = () => {
 					className: styles.button,
 				},
 				'Log in',
-			),
-			h(
-				Button,
-				{
-					onClick: () => {
-						fetch('/protected', {
-							method: 'get',
-							headers: { authorization: localStorage.getItem('jwt') },
-						})
-							.then((res) => res.json())
-							.then((res) => console.log(res));
-					},
-				},
-				'Click',
 			),
 		),
 	);
