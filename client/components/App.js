@@ -1,15 +1,21 @@
 import { createElement as h } from "react";
+import { connect } from "react-redux";
 
-import { BrowserRouter, Link, Switch, Route, Redirect } from "react-router-dom";
-import { AppBar, Button, Typography, Container } from "@material-ui/core";
+import { BrowserRouter, Link, Switch, Route } from "react-router-dom";
+import { AppBar, Button, Container } from "@material-ui/core";
 
 import Register from "./Register";
 import Login from "./Login";
 
 import { appStyles } from "./styles";
 
-const App = () => {
+const mapStateToProps = state => {
+  return { ...state };
+};
+
+const App = (...props) => {
   const styles = appStyles();
+  debugger;
 
   return h(
     BrowserRouter,
@@ -34,4 +40,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default connect(mapStateToProps, null)(App);
