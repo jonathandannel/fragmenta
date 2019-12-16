@@ -2,6 +2,7 @@ const User = require("../models").User;
 const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const checkToken = require("../util");
 
 const router = express.Router();
 
@@ -39,7 +40,6 @@ router.post("/login", (req, res, next) => {
   }).then(user => {
     if (user) {
       const hash = user.dataValues.password;
-      console.log(user.dataValues);
       bcrypt.compare(password, hash, (err, result) => {
         if (err || !result) {
           res
@@ -59,7 +59,7 @@ router.post("/login", (req, res, next) => {
             .json({
               message: "User logged in successfully",
               success: true,
-              token: token,
+              token: `Bearer ${token}`,
               user: user.dataValues
             })
             .end();

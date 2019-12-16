@@ -1,4 +1,4 @@
-import { createElement as h } from "react";
+import { createElement as h, useEffect } from "react";
 import { connect } from "react-redux";
 
 import { BrowserRouter, Link, Switch, Route } from "react-router-dom";
@@ -12,7 +12,6 @@ import { appStyles } from "./styles";
 import { setUser, setJwt } from "../actions/userActions";
 
 const mapStateToProps = state => {
-  debugger;
   return { user: state.auth.user, jwt: state.auth.jwt };
 };
 
@@ -24,6 +23,25 @@ const mapDispatchToProps = dispatch => ({
 const App = ({ user, jwt, setUser, setJwt }) => {
   const styles = appStyles();
 
+  useEffect(() => {
+    if (!user) {
+      const verifyToken = () =>
+        fetch("/verify", {
+          method: "get",
+          headers: { authorization: localStorage.getItem("jwt") }
+        })
+          .then(res => {
+            debugger;
+            res.json();
+          })
+          .then(user => {
+            setUser(user);
+            debugger;
+          });
+      verifyToken();
+    }
+  }, [user]);
+
   return h(
     BrowserRouter,
     null,
@@ -34,8 +52,7 @@ const App = ({ user, jwt, setUser, setJwt }) => {
       h(
         Container,
         {},
-        h(Typography, { variant: "h3" }, user),
-        h(Typography, { variant: "h3" }, jwt),
+        user && h(Typography, { variant: "h5" }, user.username),
         h(Link, { to: "/register" }, h(Button, null, "Register")),
         h(Link, { to: "/login" }, h(Button, null, "Login"))
       ),
