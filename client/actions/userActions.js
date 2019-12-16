@@ -1,4 +1,4 @@
-import { SET_JWT, SET_USER } from "../../constants/ActionTypes";
+import { SET_JWT, SET_USER } from "../constants/ActionTypes";
 
 export const setJwt = {
   type: SET_JWT,

@@ -9,13 +9,17 @@ import Login from "./Login";
 
 import { appStyles } from "./styles";
 
-const mapStateToProps = state => {
-  return { ...state };
-};
+import { setUser, setJwt } from "../actions/userActions";
 
-const App = (...props) => {
+const mapStateToProps = state => ({ ...state });
+
+const mapDispatchToProps = dispatch => ({
+  setUser: user => dispatch(setUser(user)),
+  setJwt: jwt => dispatch(setJwt(jwt))
+});
+
+const App = ({ user, jwt }) => {
   const styles = appStyles();
-  debugger;
 
   return h(
     BrowserRouter,
@@ -23,7 +27,11 @@ const App = (...props) => {
     h(
       "div",
       { className: styles.main },
-      h(AppBar, { className: styles.appBar }),
+      h(
+        AppBar,
+        { className: styles.appBar },
+        h(Typography, { variant: "h3" }, user, jwt)
+      ),
       h(
         Container,
         {},
@@ -40,4 +48,4 @@ const App = (...props) => {
   );
 };
 
-export default connect(mapStateToProps, null)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
