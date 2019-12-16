@@ -11,7 +11,7 @@ const auth = (state = initialState, action) => {
       const { user } = action;
       return {
         ...state,
-        user: user.email
+        user
       };
     case SET_JWT:
       const { jwt } = action;

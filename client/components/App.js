@@ -12,19 +12,17 @@ import { appStyles } from "./styles";
 import { setUser, setJwt } from "../actions/userActions";
 
 const mapStateToProps = state => {
+  debugger;
   return { user: state.auth.user, jwt: state.auth.jwt };
 };
 
 const mapDispatchToProps = dispatch => ({
-  setUsers: user => dispatch(setUser(user)),
-  setJwts: jwt => dispatch(setJwt(jwt))
+  setUser: user => dispatch(setUser(user)),
+  setJwt: jwt => dispatch(setJwt(jwt))
 });
 
-const App = ({ user, jwt, setUsers, setJwts }) => {
+const App = ({ user, jwt, setUser, setJwt }) => {
   const styles = appStyles();
-
-  const d = user;
-  debugger;
 
   return h(
     BrowserRouter,
@@ -45,11 +43,7 @@ const App = ({ user, jwt, setUsers, setJwts }) => {
         Switch,
         null,
         h(Route, { exact: true, path: "/register" }, h(Register)),
-        h(
-          Route,
-          { exact: true, path: "/login" },
-          h(Login, { setUsers, setJwts })
-        )
+        h(Route, { exact: true, path: "/login" }, h(Login, { setUser, setJwt }))
       )
     )
   );
