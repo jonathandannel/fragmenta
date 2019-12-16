@@ -10,7 +10,7 @@ import { loginFormStyles } from "./styles";
 import useLoginForm from "../hooks/useLoginForm";
 import { login } from "../api";
 
-const Login = ({ setUser, setJwt }) => {
+const Login = ({ setUser }) => {
   const requestLogin = fieldValues =>
     login(fieldValues).then(({ message, success, token, user }) => {
       setSubmissionStatus({
@@ -19,7 +19,6 @@ const Login = ({ setUser, setJwt }) => {
         token
       });
       setUser(user);
-      setJwt(token);
     });
 
   const styles = loginFormStyles();

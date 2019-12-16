@@ -1,7 +1,7 @@
 import { SET_USER, SET_JWT } from "../constants/ActionTypes";
 
 const initialState = {
-  user: "",
+  user: null,
   jwt: ""
 };
 
