@@ -10,16 +10,17 @@ import { loginFormStyles } from "./styles";
 import useLoginForm from "../hooks/useLoginForm";
 import { login } from "../api";
 
-import { setUser } from "../actions/userActions";
-
-const Login = () => {
+const Login = ({ setUsers, setJwts }) => {
   const requestLogin = fieldValues =>
-    login(fieldValues).then(({ message, success, token }) => {
+    login(fieldValues).then(({ message, success, token, user }) => {
+      debugger;
       setSubmissionStatus({
         message,
         success,
         token
       });
+      setUsers(user);
+      setJwts(token);
     });
 
   const styles = loginFormStyles();

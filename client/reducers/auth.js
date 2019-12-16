@@ -1,17 +1,17 @@
 import { SET_USER, SET_JWT } from "../constants/ActionTypes";
 
 const initialState = {
-  user: {},
+  user: "",
   jwt: ""
 };
 
-const user = (state = initialState, action) => {
+const auth = (state = initialState, action) => {
   switch (action.type) {
     case SET_USER:
       const { user } = action;
       return {
         ...state,
-        user
+        user: user.email
       };
     case SET_JWT:
       const { jwt } = action;
@@ -24,4 +24,4 @@ const user = (state = initialState, action) => {
   }
 };
 
-export default user;
+export default auth;

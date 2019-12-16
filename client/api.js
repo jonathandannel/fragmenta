@@ -14,11 +14,12 @@ export const login = fieldValues =>
     body: JSON.stringify(fieldValues)
   })
     .then(res => res.json())
-    .then(({ message, success, token }) => {
+    .then(({ message, success, token, user }) => {
       localStorage.setItem("jwt", token);
       return {
         message,
         success,
-        token
+        token,
+        user
       };
     });
