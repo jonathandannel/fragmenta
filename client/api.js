@@ -23,3 +23,11 @@ export const login = fieldValues =>
         user
       };
     });
+
+export const verifyToken = () =>
+  fetch("/verify", {
+    method: "get",
+    headers: { authorization: localStorage.getItem("jwt") }
+  })
+    .then(res => res.json())
+    .then(user => ({ user }));

@@ -7,6 +7,7 @@ import { AppBar, Button, Container, Typography } from "@material-ui/core";
 import Register from "./Register";
 import Login from "./Login";
 
+import { verifyToken } from "../api";
 import { appStyles } from "./styles";
 
 import { setUser, setJwt } from "../actions/userActions";
@@ -25,20 +26,9 @@ const App = ({ user, jwt, setUser, setJwt }) => {
 
   useEffect(() => {
     if (!user) {
-      const verifyToken = () =>
-        fetch("/verify", {
-          method: "get",
-          headers: { authorization: localStorage.getItem("jwt") }
-        })
-          .then(res => {
-            debugger;
-            res.json();
-          })
-          .then(user => {
-            setUser(user);
-            debugger;
-          });
-      verifyToken();
+      verifyToken().then(({ user }) => {
+        setUser(user);
+      });
     }
   }, [user]);
 

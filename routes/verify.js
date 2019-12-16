@@ -12,12 +12,7 @@ router.get("/", (req, res, next) => {
       username
     }
   }).then(({ dataValues }) => {
-    console.log("about to send");
-    console.log(dataValues);
-    res.status(200).json({
-      user: dataValues,
-      message: "User retrieved"
-    });
+    res.status(200).send(dataValues);
   });
 });
 
