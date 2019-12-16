@@ -1,6 +1,6 @@
 import { createElement as h, useEffect } from "react";
 import { connect } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 
 import { verifyToken } from "../api";
 import { setUser, setJwt } from "../actions/userActions";
@@ -19,6 +19,7 @@ const mapDispatchToProps = dispatch => ({
 
 const App = ({ user, setUser, setJwt }) => {
   useEffect(() => {
+    debugger;
     if (!user) {
       verifyToken().then(({ user, token }) => {
         debugger;
@@ -29,7 +30,7 @@ const App = ({ user, setUser, setJwt }) => {
   }, []);
 
   return h(
-    BrowserRouter,
+    HashRouter,
     null,
     h(Header, { user, setUser, setJwt }),
     h(PageContent, { user, setUser, setJwt })

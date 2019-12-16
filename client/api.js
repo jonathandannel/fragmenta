@@ -1,5 +1,5 @@
 export const register = fieldValues =>
-  fetch("/auth/register", {
+  fetch("/api/auth/register", {
     method: "post",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(fieldValues)
@@ -8,7 +8,7 @@ export const register = fieldValues =>
     .then(({ message, success }) => ({ message, success }));
 
 export const login = fieldValues =>
-  fetch("/auth/login", {
+  fetch("/api/auth/login", {
     method: "post",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(fieldValues)
@@ -25,9 +25,12 @@ export const login = fieldValues =>
     });
 
 export const verifyToken = () =>
-  fetch("/verify", {
+  fetch("/api/verify", {
     method: "get",
     headers: { authorization: localStorage.getItem("jwt") }
   })
     .then(res => res.json())
-    .then(user => ({ user, token: localStorage.getItem("jwt") }));
+    .then(user => {
+      debugger;
+      return { user, token: localStorage.getItem("jwt") };
+    });

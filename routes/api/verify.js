@@ -1,6 +1,6 @@
-const User = require("../models").User;
+const User = require("../../models").User;
 const express = require("express");
-const checkToken = require("../util").checkToken;
+const checkToken = require("../../util").checkToken;
 
 const router = express.Router();
 router.use(checkToken);
@@ -12,6 +12,7 @@ router.get("/", (req, res, next) => {
       username
     }
   }).then(({ dataValues }) => {
+    console.log(dataValues);
     res.status(200).send(dataValues);
   });
 });
