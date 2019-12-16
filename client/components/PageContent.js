@@ -5,7 +5,7 @@ import { Switch, Route } from "react-router-dom";
 import Register from "./Register";
 import Login from "./Login";
 
-const PageContent = ({ user, setUser, setJwt }) => {
+const PageContent = () => {
   const styles = appStyles();
   return h(
     "main",
@@ -14,7 +14,7 @@ const PageContent = ({ user, setUser, setJwt }) => {
       Switch,
       null,
       h(Route, { exact: true, path: "/register" }, h(Register)),
-      h(Route, { exact: true, path: "/login" }, h(Login, { setUser, setJwt }))
+      h(Route, { exact: true, path: "/login" }, h(Login))
     )
   );
 };

@@ -19,10 +19,8 @@ const mapDispatchToProps = dispatch => ({
 
 const App = ({ user, setUser, setJwt }) => {
   useEffect(() => {
-    debugger;
     if (!user) {
       verifyToken().then(({ user, token }) => {
-        debugger;
         setUser(user);
         setJwt(token);
       });
@@ -33,7 +31,7 @@ const App = ({ user, setUser, setJwt }) => {
     HashRouter,
     null,
     h(Header, { user, setUser, setJwt }),
-    h(PageContent, { user, setUser, setJwt })
+    h(PageContent)
   );
 };
 

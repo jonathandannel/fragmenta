@@ -12,7 +12,6 @@ router.get("/", (req, res, next) => {
       username
     }
   }).then(({ dataValues }) => {
-    console.log(dataValues);
     res.status(200).send(dataValues);
   });
 });

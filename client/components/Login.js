@@ -1,8 +1,16 @@
 import { createElement as h, useState } from "react";
+import { connect } from "react-redux";
 import { TextField, Button, Typography } from "@material-ui/core";
 import { loginFormStyles } from "./styles";
 import useLoginForm from "../hooks/useLoginForm";
 import { login } from "../api";
+
+import { setUser, setJwt } from "../actions/userActions";
+
+const mapDispatchToProps = dispatch => ({
+  setUser: user => dispatch(setUser(user)),
+  setJwt: token => dispatch(setJwt(token))
+});
 
 const Login = ({ setUser, setJwt }) => {
   const requestLogin = fieldValues =>
@@ -55,4 +63,4 @@ const Login = ({ setUser, setJwt }) => {
   );
 };
 
-export default Login;
+export default connect(null, mapDispatchToProps)(Login);
