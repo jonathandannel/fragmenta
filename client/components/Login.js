@@ -1,24 +1,17 @@
-import { createElement as h, useState, useEffect } from "react";
-import {
-  TextField,
-  Button,
-  Container,
-  Typography,
-  lighten
-} from "@material-ui/core";
+import { createElement as h, useState } from "react";
+import { TextField, Button, Typography } from "@material-ui/core";
 import { loginFormStyles } from "./styles";
 import useLoginForm from "../hooks/useLoginForm";
 import { login } from "../api";
 
-const Login = ({ setUser }) => {
+const Login = ({ setUser, setJwt }) => {
   const requestLogin = fieldValues =>
-    login(fieldValues).then(({ message, success, token, user }) => {
+    login(fieldValues).then(({ message, token, user }) => {
       setSubmissionStatus({
-        message,
-        success,
-        token
+        message
       });
       setUser(user);
+      setJwt(token);
     });
 
   const styles = loginFormStyles();

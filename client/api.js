@@ -30,4 +30,4 @@ export const verifyToken = () =>
     headers: { authorization: localStorage.getItem("jwt") }
   })
     .then(res => res.json())
-    .then(user => ({ user }));
+    .then(user => ({ user, token: localStorage.getItem("jwt") }));
