@@ -1,8 +1,4 @@
-# Installation
-
-### Clone
-
-### npm i
+## npm i
 
 ## Mysql
 
@@ -16,4 +12,4 @@
 
 ## npm run dev (in another terminal)
 
-- Webpack will watch the /src/ directory and rebuild the client side bundle when code changes
+- Webpack will watch the src/ directory and rebuild the client side bundle when code changes
