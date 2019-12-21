@@ -6,10 +6,10 @@ import Register from "./Register";
 import Login from "./Login";
 
 const PageContent = () => {
-  const styles = appStyles();
+  const appStyle = appStyles();
   return h(
     "main",
-    { className: styles.main },
+    { className: appStyle.main },
     h(
       Switch,
       null,

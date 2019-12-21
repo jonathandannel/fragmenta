@@ -21,8 +21,10 @@ const App = ({ user, setUser, setJwt }) => {
   useEffect(() => {
     if (!user) {
       verifyToken().then(({ user, token }) => {
-        setUser(user);
-        setJwt(token);
+        if (user && token) {
+          setUser(user);
+          setJwt(token);
+        }
       });
     }
   }, []);

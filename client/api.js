@@ -31,6 +31,5 @@ export const verifyToken = () =>
   })
     .then(res => res.json())
     .then(user => {
-      debugger;
       return { user, token: localStorage.getItem("jwt") };
     });

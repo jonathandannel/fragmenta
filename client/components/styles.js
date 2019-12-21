@@ -52,9 +52,28 @@ export const appStyles = makeStyles(() => ({
     justifyContent: "center",
     alignSelf: "center",
     display: "flex",
-    flexDirection: "column"
+    marginTop: "7rem"
   },
-  appBar: {
-    height: "2rem"
+  link: {
+    textDecoration: "none"
+  }
+}));
+
+export const headerStyles = makeStyles(({ spacing }) => ({
+  userInfo: {
+    display: "flex"
+  },
+  userAvatar: {
+    marginRight: spacing(2)
+  },
+  grow: {
+    flexGrow: 1
+  },
+  toolBar: {
+    display: "flex",
+    justifyContent: "space-between"
+  },
+  userAction: {
+    marginRight: spacing(2)
   }
 }));

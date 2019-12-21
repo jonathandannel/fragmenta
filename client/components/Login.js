@@ -14,12 +14,14 @@ const mapDispatchToProps = dispatch => ({
 
 const Login = ({ setUser, setJwt }) => {
   const requestLogin = fieldValues =>
-    login(fieldValues).then(({ message, token, user }) => {
+    login(fieldValues).then(({ message, token, user, success }) => {
       setSubmissionStatus({
         message
       });
-      setUser(user);
-      setJwt(token);
+      if (success) {
+        setUser(user);
+        setJwt(token);
+      }
     });
 
   const styles = loginFormStyles();
