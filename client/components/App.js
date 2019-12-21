@@ -1,6 +1,6 @@
 import { createElement as h, useEffect } from "react";
 import { connect } from "react-redux";
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 
 import { verifyToken } from "../api";
 import { setUser, setJwt } from "../actions/userActions";
@@ -30,7 +30,7 @@ const App = ({ user, setUser, setJwt }) => {
   }, []);
 
   return h(
-    HashRouter,
+    BrowserRouter,
     null,
     !user ? h(Splash) : h(Main, { user, setUser, setJwt })
   );
