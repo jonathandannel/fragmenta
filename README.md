@@ -3,7 +3,7 @@
 ## mysql
 
 - Create a mysql database
-- Link it to the app via the .env file
+- Link it to the app with your credentials via .env
 - Run `npx sequelize db:migrate`
 
 ## npm start
