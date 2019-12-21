@@ -1,6 +1,6 @@
 ## npm i
 
-## Mysql
+## mysql
 
 - Create a mysql database
 - Link it to the app via the .env file
