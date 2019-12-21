@@ -28,7 +28,8 @@ export const appStyles = makeStyles(() => ({
     justifyContent: "center",
     alignSelf: "center",
     display: "flex",
-    marginTop: "7rem"
+    marginTop: "7rem",
+    minHeight: "50vh"
   },
   link: {
     textDecoration: "none"
