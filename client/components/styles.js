@@ -61,7 +61,8 @@ export const headerStyles = makeStyles(({ spacing, palette }) => ({
   },
   userNameText: {
     fontWeight: 600,
-    marginRight: spacing(2)
+    transform: "scale(0.98)",
+    marginRight: spacing(1)
   },
   grow: {
     flexGrow: 1

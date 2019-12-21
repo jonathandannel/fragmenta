@@ -38,13 +38,17 @@ const Login = ({ setUser, setJwt }) => {
       h(TextField, {
         name: "username",
         placeholder: "Username",
+        label: "Username",
         onChange: handleChange,
+        variant: "outlined",
         className: styles.textField
       }),
       h(TextField, {
         name: "password",
         type: "password",
         placeholder: "Password",
+        variant: "outlined",
+        label: "Password",
         onChange: handleChange,
         className: styles.textField
       }),

@@ -5,7 +5,7 @@ import { Switch, Route } from "react-router-dom";
 import Register from "./Register";
 import Login from "./Login";
 
-const PageContent = () => {
+const PageContent = ({ user, jwt }) => {
   const appStyle = appStyles();
   return h(
     "main",

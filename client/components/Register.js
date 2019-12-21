@@ -30,6 +30,8 @@ const Register = () => {
       h(TextField, {
         name: "username",
         placeholder: "Username",
+        label: "Username",
+        variant: "outlined",
         onChange: handleChange,
         className: styles.textField
       }),
@@ -37,6 +39,8 @@ const Register = () => {
         name: "email",
         type: "email",
         placeholder: "Email",
+        variant: "outlined",
+        label: "Email",
         onChange: handleChange,
         className: styles.textField
       }),
@@ -44,6 +48,9 @@ const Register = () => {
         name: "password",
         type: "password",
         placeholder: "Password",
+        label: "Password",
+
+        variant: "outlined",
         onChange: handleChange,
 
         className: styles.textField
