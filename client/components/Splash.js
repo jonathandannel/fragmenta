@@ -1,69 +1,68 @@
 import { createElement as h, useState, useEffect } from "react";
-import { Typography, Button } from "@material-ui/core";
-// import { appStyles } from "./styles";
-import { Switch, Route, Link } from "react-router-dom";
+import { Typography, Button, Dialog } from "@material-ui/core";
 
-import { appStyles, headerStyles } from "./styles";
+import { splashStyles } from "./styles";
 
 import Register from "./Register";
 import Login from "./Login";
 
-const Splash = ({ user, jwt }) => {
-  const appStyle = appStyles();
-  const headerStyle = headerStyles();
+const Splash = ({ user }) => {
+  const styles = splashStyles();
+
+  const [loginDialog, setLoginDialog] = useState(false);
+  const [registerDialog, setRegisterDialog] = useState(false);
+
   return h(
     "main",
-    { className: appStyle.main },
+    { className: styles.main },
     h(
       "div",
       {
-        style: {
-          display: "flex",
-          marginRight: "5rem",
-          marginTop: "2rem",
-          flexDirection: "column"
-        }
+        className: styles.splashContent
       },
       h(Typography, { variant: "h1" }, "Create freely."),
       h(
         "div",
         {
-          className: headerStyle.loginActions,
-          style: { marginTop: "3rem", transform: "translateX(-1rem)" }
+          className: styles.loginActions
         },
         h(
-          Link,
-          { className: headerStyle.link, to: "/register" },
-          h(
-            Button,
-            {
-              className: headerStyle.userAction,
-              variant: "contained",
-              color: "primary"
-            },
-            "Register"
-          )
+          Button,
+          {
+            variant: "contained",
+            color: "primary",
+            onClick: () => setRegisterDialog(true)
+          },
+          "Register"
         ),
         h(
-          Link,
-          { className: headerStyle.link, to: "/login" },
-          h(
-            Button,
-            {
-              className: headerStyle.userAction,
-              variant: "contained",
-              color: "primary"
-            },
-            "Login"
-          )
+          Button,
+          {
+            variant: "contained",
+            color: "primary",
+            onClick: () => setLoginDialog(true)
+          },
+          "Login"
         )
       )
     ),
     h(
-      Switch,
-      null,
-      h(Route, { exact: true, path: "/register" }, h(Register)),
-      h(Route, { exact: true, path: "/login" }, h(Login))
+      Dialog,
+      {
+        className: styles.loginDialog,
+        open: loginDialog,
+        onClose: () => setLoginDialog(false)
+      },
+      h(Login)
+    ),
+    h(
+      Dialog,
+      {
+        className: styles.loginDialog,
+        open: registerDialog,
+        onClose: () => setRegisterDialog(false)
+      },
+      h(Register)
     )
   );
 };

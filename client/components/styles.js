@@ -3,8 +3,7 @@ import { makeStyles } from "@material-ui/core";
 export const loginFormStyles = makeStyles(() => ({
   formContainer: {
     display: "flex",
-    flexDirection: "column",
-    width: "33vw"
+    flexDirection: "column"
   },
   formPaper: {
     padding: "5rem"
@@ -22,6 +21,31 @@ export const loginFormStyles = makeStyles(() => ({
   }
 }));
 
+export const splashStyles = makeStyles(() => ({
+  main: {
+    padding: "5rem",
+    justifyContent: "center",
+    alignSelf: "center",
+    display: "flex",
+    marginTop: "7rem",
+    minHeight: "50vh"
+  },
+  loginActions: {
+    width: 250,
+    display: "flex",
+    alignSelf: "center",
+    justifyContent: "space-evenly",
+    marginTop: "3rem",
+    transform: "translateX(-1rem)"
+  },
+  splashContent: {
+    display: "flex",
+    marginRight: "5rem",
+    marginTop: "2rem",
+    flexDirection: "column"
+  }
+}));
+
 export const appStyles = makeStyles(() => ({
   main: {
     padding: "5rem",
@@ -30,6 +54,10 @@ export const appStyles = makeStyles(() => ({
     display: "flex",
     marginTop: "7rem",
     minHeight: "50vh"
+  },
+  appWrapper: {
+    display: "flex",
+    flexDirection: "column"
   },
   link: {
     textDecoration: "none"
@@ -58,6 +86,7 @@ export const headerStyles = makeStyles(({ spacing, palette }) => ({
   loginActions: {
     width: 250,
     display: "flex",
+    alignSelf: "center",
     justifyContent: "space-evenly"
   },
   userNameText: {

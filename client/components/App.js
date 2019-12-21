@@ -5,8 +5,8 @@ import { HashRouter } from "react-router-dom";
 import { verifyToken } from "../api";
 import { setUser, setJwt } from "../actions/userActions";
 
-import Header from "./Header";
 import Splash from "./Splash";
+import Main from "./Main";
 
 const mapStateToProps = state => {
   return { user: state.auth.user };
@@ -32,7 +32,7 @@ const App = ({ user, setUser, setJwt }) => {
   return h(
     HashRouter,
     null,
-    !user ? h(Splash) : h(Header, { user, setUser, setJwt })
+    !user ? h(Splash) : h(Main, { user, setUser, setJwt })
   );
 };
 
