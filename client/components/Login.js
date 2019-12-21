@@ -1,6 +1,6 @@
 import { createElement as h, useState } from "react";
 import { connect } from "react-redux";
-import { TextField, Button, Typography } from "@material-ui/core";
+import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import { loginFormStyles } from "./styles";
 import useLoginForm from "../hooks/useLoginForm";
 import { login } from "../api";
@@ -19,7 +19,6 @@ const Login = ({ setUser, setJwt }) => {
         success,
         message
       });
-      debugger;
       if (success) {
         setUser(user);
         setJwt(token);
@@ -31,38 +30,46 @@ const Login = ({ setUser, setJwt }) => {
   const { handleChange, handleSubmit } = useLoginForm(requestLogin);
 
   return h(
-    "form",
-    { className: styles.formContainer, onSubmit: handleSubmit },
-    h(Typography, { variant: "h4", className: styles.title }, "Log in"),
-    h(TextField, {
-      name: "username",
-      placeholder: "Username",
-      onChange: handleChange
-    }),
-    h(TextField, {
-      name: "password",
-      type: "password",
-      placeholder: "Password",
-      onChange: handleChange
-    }),
-    submissionStatus &&
-      h(
-        Typography,
-        { variant: "caption", color: !submissionStatus.success ? "error" : "" },
-        submissionStatus.message
-      ),
+    Paper,
+    { elevation: 3, className: styles.formPaper },
     h(
-      "div",
-      { className: styles.buttonContainer },
+      "form",
+      { className: styles.formContainer, onSubmit: handleSubmit },
+      h(TextField, {
+        name: "username",
+        placeholder: "Username",
+        onChange: handleChange,
+        className: styles.textField
+      }),
+      h(TextField, {
+        name: "password",
+        type: "password",
+        placeholder: "Password",
+        onChange: handleChange,
+        className: styles.textField
+      }),
+      submissionStatus &&
+        h(
+          Typography,
+          {
+            variant: "caption",
+            color: !submissionStatus.success ? "error" : ""
+          },
+          submissionStatus.message
+        ),
       h(
-        Button,
-        {
-          type: "submit",
-          color: "primary",
-          variant: "contained",
-          className: styles.button
-        },
-        "Log in"
+        "div",
+        { className: styles.buttonContainer },
+        h(
+          Button,
+          {
+            type: "submit",
+            color: "primary",
+            variant: "contained",
+            className: styles.button
+          },
+          "Log in"
+        )
       )
     )
   );

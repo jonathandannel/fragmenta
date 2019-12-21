@@ -1,19 +1,26 @@
-import { createElement as h } from "react";
+import { createElement as h, useState, useRef } from "react";
 import { Link, Redirect } from "react-router-dom";
 import {
   AppBar,
   Button,
-  Avatar,
   Typography,
   Toolbar,
-  Container
+  IconButton,
+  Menu,
+  MenuList,
+  MenuItem,
+  ListItemIcon
 } from "@material-ui/core";
 
-import { appStyles, headerStyles } from "./styles";
+import { Settings, Add } from "@material-ui/icons";
+
+import { headerStyles } from "./styles";
 
 const Header = ({ user, setUser, setJwt }) => {
-  const appStyle = appStyles();
-  const headerStyle = headerStyles();
+  const styles = headerStyles();
+  const userMenuAnchor = useRef();
+
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
 
   const logout = () => {
     setUser(null);
@@ -22,59 +29,72 @@ const Header = ({ user, setUser, setJwt }) => {
   };
 
   const loggedIn = user !== null;
-  debugger;
 
   return h(
     AppBar,
-    { color: "" },
+    { className: styles.appBar },
     h(
       Toolbar,
-      { className: headerStyle.toolBar },
+      { className: styles.toolBar },
       h(
         Link,
-        { className: appStyle.link, to: "/" },
+        { className: styles.link, to: "/" },
         h(
           Typography,
-          { className: headerStyle.logo, variant: "h5", color: "primary" },
+          { className: styles.logo, variant: "h5", color: "primary" },
           "myriad"
         )
       ),
-      h("div", { className: headerStyles.grow }),
+      h("div", { className: styles.grow }),
       loggedIn
         ? h(
             "div",
-            { className: headerStyle.userInfo },
+            { className: styles.userInfo },
             h(
-              Avatar,
-              { color: "secondary", className: headerStyle.userAvatar },
-              user.username && user.username[0]
+              "div",
+              { className: styles.userName },
+              h(
+                Typography,
+                {
+                  className: styles.userNameText,
+                  variant: "subtitle1",
+                  color: "secondary"
+                },
+                user.username
+              )
             ),
-            h(Typography, { variant: "h6" }, user.username)
+            h(
+              IconButton,
+              {
+                ref: userMenuAnchor,
+                onClick: () => setUserMenuOpen(true)
+              },
+              h(Settings)
+            )
           )
         : h(
             "div",
             null,
             h(
               Link,
-              { className: appStyle.link, to: "/register" },
+              { className: styles.link, to: "/register" },
               h(
                 Button,
                 {
-                  className: headerStyle.userAction,
+                  className: styles.userAction,
                   variant: "contained",
                   color: "primary"
                 },
                 "Register"
               )
             ),
-
             h(
               Link,
-              { className: appStyle.link, to: "/login" },
+              { className: styles.link, to: "/login" },
               h(
                 Button,
                 {
-                  className: headerStyle.userAction,
+                  className: styles.userAction,
                   variant: "contained",
                   color: "primary"
                 },
@@ -82,12 +102,39 @@ const Header = ({ user, setUser, setJwt }) => {
               )
             )
           ),
-      loggedIn &&
+      h(
+        Menu,
+        {
+          anchorEl: userMenuAnchor.current,
+          open: userMenuOpen,
+          onClose: () => setUserMenuOpen(false),
+          className: styles.userMenu
+        },
         h(
-          Button,
-          { className: appStyle.link, variant: "contained", onClick: logout },
-          "Logout"
+          MenuList,
+          {
+            className: styles.userMenuList
+          },
+          h(
+            MenuItem,
+            { className: styles.userMenuItem, onClick: logout },
+            h(ListItemIcon, null, h(Add)),
+            "Logout"
+          ),
+          h(
+            MenuItem,
+            { className: styles.userMenuItem, onClick: logout },
+            h(ListItemIcon, null, h(Add)),
+            "Profile"
+          ),
+          h(
+            MenuItem,
+            { className: styles.userMenuItem, onClick: logout },
+            h(ListItemIcon, null, h(Add)),
+            "Help"
+          )
         )
+      )
     )
   );
 };

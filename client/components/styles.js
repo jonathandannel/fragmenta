@@ -1,35 +1,16 @@
 import { makeStyles } from "@material-ui/core";
 
-export const registerFormStyles = makeStyles(() => ({
-  formContainer: {
-    display: "flex",
-    flexDirection: "column",
-    width: "50vw",
-    height: "50vh",
-    justifyContent: "space-between"
-  },
-  buttonContainer: {
-    width: "100%"
-  },
-  button: {
-    background: "darkseagreen",
-    width: "100%",
-    fontWeight: "bold",
-    color: "white",
-    marginTop: "1rem"
-  },
-  title: {
-    alignSelf: "center"
-  }
-}));
-
 export const loginFormStyles = makeStyles(() => ({
   formContainer: {
     display: "flex",
     flexDirection: "column",
-    width: "50vw",
-    height: "50vh",
-    justifyContent: "space-between"
+    width: "33vw"
+  },
+  formPaper: {
+    padding: "5rem"
+  },
+  textField: {
+    marginBottom: "1.5rem"
   },
   buttonContainer: {
     width: "100%"
@@ -37,10 +18,7 @@ export const loginFormStyles = makeStyles(() => ({
   button: {
     width: "100%",
     fontWeight: "bold",
-    marginTop: "1rem"
-  },
-  title: {
-    alignSelf: "center"
+    marginTop: "1.5rem"
   }
 }));
 
@@ -57,18 +35,31 @@ export const appStyles = makeStyles(() => ({
   }
 }));
 
-export const headerStyles = makeStyles(({ spacing }) => ({
+export const headerStyles = makeStyles(({ spacing, palette }) => ({
   userInfo: {
     display: "flex"
   },
+  appBar: {
+    background: "white"
+  },
+  link: {
+    textDecoration: "none"
+  },
   userAvatar: {
+    marginRight: spacing(2),
+    background: palette.secondary.main
+  },
+  userName: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around"
+  },
+  userNameText: {
+    fontWeight: 600,
     marginRight: spacing(2)
   },
   grow: {
     flexGrow: 1
-  },
-  logo: {
-    // transform: "scale(0.9)"
   },
   toolBar: {
     marginLeft: spacing(2),
@@ -77,5 +68,8 @@ export const headerStyles = makeStyles(({ spacing }) => ({
   },
   userAction: {
     marginRight: spacing(2)
+  },
+  userMenuList: {
+    paddingRight: "1rem"
   }
 }));

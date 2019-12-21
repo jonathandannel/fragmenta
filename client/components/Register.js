@@ -1,5 +1,5 @@
-import { createElement as h, useState, useEffect } from "react";
-import { TextField, Button, Container, Typography } from "@material-ui/core";
+import { createElement as h, useState } from "react";
+import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import { loginFormStyles } from "./styles";
 import useRegisterForm from "../hooks/useRegisterForm";
 import { register } from "../api";
@@ -22,51 +22,61 @@ const Register = () => {
   );
 
   return h(
-    "form",
-    { className: styles.formContainer, onSubmit: handleSubmit },
-    h(Typography, { variant: "h4", className: styles.title }, "Register "),
-    h(TextField, {
-      name: "username",
-      placeholder: "Username",
-      onChange: handleChange
-    }),
-    h(TextField, {
-      name: "email",
-      type: "email",
-      placeholder: "Email",
-      onChange: handleChange
-    }),
-    h(TextField, {
-      name: "password",
-      type: "password",
-      placeholder: "Password",
-      onChange: handleChange
-    }),
-    submissionStatus &&
-      h(
-        Typography,
-        { variant: "caption", color: !submissionStatus.success ? "error" : "" },
-        submissionStatus.message
-      ),
-    validationErrors.length
-      ? h(
-          Typography,
-          { color: "error", variant: "caption" },
-          validationErrors.slice(-1)
-        )
-      : null,
+    Paper,
+    { elevation: 3, className: styles.formPaper },
     h(
-      "div",
-      { className: styles.buttonContainer },
+      "form",
+      { className: styles.formContainer, onSubmit: handleSubmit },
+      h(TextField, {
+        name: "username",
+        placeholder: "Username",
+        onChange: handleChange,
+        className: styles.textField
+      }),
+      h(TextField, {
+        name: "email",
+        type: "email",
+        placeholder: "Email",
+        onChange: handleChange,
+        className: styles.textField
+      }),
+      h(TextField, {
+        name: "password",
+        type: "password",
+        placeholder: "Password",
+        onChange: handleChange,
+
+        className: styles.textField
+      }),
+      submissionStatus &&
+        h(
+          Typography,
+          {
+            variant: "caption",
+            color: !submissionStatus.success ? "error" : ""
+          },
+          submissionStatus.message
+        ),
+      validationErrors.length
+        ? h(
+            Typography,
+            { color: "error", variant: "caption" },
+            validationErrors.slice(-1)
+          )
+        : null,
       h(
-        Button,
-        {
-          type: "submit",
-          variant: "contained",
-          color: "primary",
-          className: styles.button
-        },
-        "Register"
+        "div",
+        { className: styles.buttonContainer },
+        h(
+          Button,
+          {
+            type: "submit",
+            variant: "contained",
+            color: "primary",
+            className: styles.button
+          },
+          "Register"
+        )
       )
     )
   );
