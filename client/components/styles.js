@@ -54,6 +54,11 @@ export const headerStyles = makeStyles(({ spacing, palette }) => ({
     flexDirection: "column",
     justifyContent: "space-around"
   },
+  loginActions: {
+    width: 250,
+    display: "flex",
+    justifyContent: "space-evenly"
+  },
   userNameText: {
     fontWeight: 600,
     marginRight: spacing(2)
@@ -66,10 +71,10 @@ export const headerStyles = makeStyles(({ spacing, palette }) => ({
     display: "flex",
     justifyContent: "space-between"
   },
-  userAction: {
-    marginRight: spacing(2)
+  userMenu: {
+    width: "150px"
   },
-  userMenuList: {
-    paddingRight: "1rem"
+  userMenuPopper: {
+    zIndex: 5000
   }
 }));

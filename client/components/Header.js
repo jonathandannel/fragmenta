@@ -1,18 +1,21 @@
 import { createElement as h, useState, useRef } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   AppBar,
   Button,
   Typography,
   Toolbar,
   IconButton,
-  Menu,
+  Container,
+  ClickAwayListener,
   MenuList,
   MenuItem,
-  ListItemIcon
+  ListItemIcon,
+  Popper,
+  Paper
 } from "@material-ui/core";
 
-import { Settings, Add } from "@material-ui/icons";
+import { Settings, ExitToApp, Face } from "@material-ui/icons";
 
 import { headerStyles } from "./styles";
 
@@ -74,7 +77,7 @@ const Header = ({ user, setUser, setJwt }) => {
           )
         : h(
             "div",
-            null,
+            { className: styles.loginActions },
             h(
               Link,
               { className: styles.link, to: "/register" },
@@ -103,35 +106,41 @@ const Header = ({ user, setUser, setJwt }) => {
             )
           ),
       h(
-        Menu,
+        Popper,
         {
           anchorEl: userMenuAnchor.current,
           open: userMenuOpen,
           onClose: () => setUserMenuOpen(false),
-          className: styles.userMenu
+          role: undefined,
+          className: styles.userMenuPopper
         },
         h(
-          MenuList,
-          {
-            className: styles.userMenuList
-          },
+          ClickAwayListener,
+          { onClickAway: () => setUserMenuOpen(false) },
           h(
-            MenuItem,
-            { className: styles.userMenuItem, onClick: logout },
-            h(ListItemIcon, null, h(Add)),
-            "Logout"
-          ),
-          h(
-            MenuItem,
-            { className: styles.userMenuItem, onClick: logout },
-            h(ListItemIcon, null, h(Add)),
-            "Profile"
-          ),
-          h(
-            MenuItem,
-            { className: styles.userMenuItem, onClick: logout },
-            h(ListItemIcon, null, h(Add)),
-            "Help"
+            Paper,
+            {
+              className: styles.userMenu
+            },
+            h(
+              MenuList,
+              {
+                className: styles.userMenuList,
+                autoFocusItem: userMenuOpen
+              },
+              h(
+                MenuItem,
+                { className: styles.userMenuItem, onClick: logout },
+                h(ListItemIcon, null, h(ExitToApp)),
+                "Logout"
+              ),
+              h(
+                MenuItem,
+                { className: styles.userMenuItem, onClick: logout },
+                h(ListItemIcon, null, h(Face)),
+                "Profile"
+              )
+            )
           )
         )
       )
