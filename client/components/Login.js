@@ -16,8 +16,10 @@ const Login = ({ setUser, setJwt }) => {
   const requestLogin = fieldValues =>
     login(fieldValues).then(({ message, token, user, success }) => {
       setSubmissionStatus({
+        success,
         message
       });
+      debugger;
       if (success) {
         setUser(user);
         setJwt(token);
@@ -46,9 +48,8 @@ const Login = ({ setUser, setJwt }) => {
     submissionStatus &&
       h(
         Typography,
-        { variant: "caption" },
-        submissionStatus.message,
-        submissionStatus.token
+        { variant: "caption", color: !submissionStatus.success ? "error" : "" },
+        submissionStatus.message
       ),
     h(
       "div",

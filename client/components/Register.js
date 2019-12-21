@@ -43,7 +43,11 @@ const Register = () => {
       onChange: handleChange
     }),
     submissionStatus &&
-      h(Typography, { variant: "caption" }, submissionStatus.message),
+      h(
+        Typography,
+        { variant: "caption", color: !submissionStatus.success ? "error" : "" },
+        submissionStatus.message
+      ),
     validationErrors.length
       ? h(
           Typography,

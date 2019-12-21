@@ -22,6 +22,7 @@ const Header = ({ user, setUser, setJwt }) => {
   };
 
   const loggedIn = user !== null;
+  debugger;
 
   return h(
     AppBar,
