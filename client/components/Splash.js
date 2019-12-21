@@ -8,7 +8,7 @@ import { appStyles, headerStyles } from "./styles";
 import Register from "./Register";
 import Login from "./Login";
 
-const PageContent = ({ user, jwt }) => {
+const Splash = ({ user, jwt }) => {
   const appStyle = appStyles();
   const headerStyle = headerStyles();
   return h(
@@ -68,4 +68,4 @@ const PageContent = ({ user, jwt }) => {
   );
 };
 
-export default PageContent;
+export default Splash;

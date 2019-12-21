@@ -6,7 +6,7 @@ import { verifyToken } from "../api";
 import { setUser, setJwt } from "../actions/userActions";
 
 import Header from "./Header";
-import PageContent from "./PageContent";
+import Splash from "./Splash";
 
 const mapStateToProps = state => {
   return { user: state.auth.user };
@@ -32,8 +32,7 @@ const App = ({ user, setUser, setJwt }) => {
   return h(
     HashRouter,
     null,
-    h(Header, { user, setUser, setJwt }),
-    h(PageContent)
+    !user ? h(Splash) : h(Header, { user, setUser, setJwt })
   );
 };
 
