@@ -20,19 +20,17 @@ const useRegisterForm = cb => {
     if (name === "password") {
       if (trimmed.length < 4 || trimmed.length > 20) {
         error = "Password must be between 4 and 20 characters";
-      } else {
-        if (!validRegex.test(trimmed)) {
-          error = "Passwords may only contain alphanumeric characters";
-        }
+      }
+      if (!validRegex.test(trimmed)) {
+        error = "Passwords may only contain alphanumeric characters";
       }
     }
     if (name === "username") {
       if (trimmed.length < 4 || trimmed.length > 20) {
         error = "Username must be between 4 and 20 characters";
-      } else {
-        if (!validRegex.test(trimmed)) {
-          error = "Username may only contain alphanumeric characters";
-        }
+      }
+      if (!validRegex.test(trimmed)) {
+        error = "Username may only contain alphanumeric characters";
       }
     }
     return error;
@@ -41,6 +39,8 @@ const useRegisterForm = cb => {
   const handleSubmit = e => {
     e.preventDefault();
     setValidationErrors([]);
+
+    let errors = [];
 
     if (Object.keys(values).length !== 3) {
       setValidationErrors([...validationErrors, "All fields are mandatory"]);
@@ -53,15 +53,16 @@ const useRegisterForm = cb => {
         value: values[name]
       });
       if (error !== null) {
-        setValidationErrors([...validationErrors, error]);
+        errors.push(error);
       }
     }
 
-    if (validationErrors.length) {
+    if (errors.length) {
+      setValidationErrors([...validationErrors, ...errors]);
       return;
-    } else {
-      cb(values);
     }
+
+    cb(values);
   };
 
   return {

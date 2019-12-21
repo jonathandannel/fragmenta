@@ -6,6 +6,7 @@ import { register } from "../api";
 
 const Register = () => {
   const requestRegistration = fieldValues => {
+    setSubmissionStatus(false);
     register(fieldValues).then(({ message, success }) =>
       setSubmissionStatus({
         message,
@@ -44,8 +45,10 @@ const Register = () => {
     submissionStatus &&
       h(Typography, { variant: "caption" }, submissionStatus.message),
     validationErrors.length
-      ? validationErrors.map(v =>
-          h(Typography, { color: "error", variant: "caption" }, v)
+      ? h(
+          Typography,
+          { color: "error", variant: "caption" },
+          validationErrors.slice(-1)
         )
       : null,
     h(
@@ -54,8 +57,9 @@ const Register = () => {
       h(
         Button,
         {
-          disabled: validationErrors > 0,
           type: "submit",
+          variant: "contained",
+          color: "primary",
           className: styles.button
         },
         "Register"

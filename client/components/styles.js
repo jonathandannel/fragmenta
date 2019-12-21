@@ -35,10 +35,8 @@ export const loginFormStyles = makeStyles(() => ({
     width: "100%"
   },
   button: {
-    background: "darkseagreen",
     width: "100%",
     fontWeight: "bold",
-    color: "white",
     marginTop: "1rem"
   },
   title: {
@@ -69,7 +67,11 @@ export const headerStyles = makeStyles(({ spacing }) => ({
   grow: {
     flexGrow: 1
   },
+  logo: {
+    // transform: "scale(0.9)"
+  },
   toolBar: {
+    marginLeft: spacing(2),
     display: "flex",
     justifyContent: "space-between"
   },

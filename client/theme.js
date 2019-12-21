@@ -1,10 +1,17 @@
 import { createMuiTheme } from "@material-ui/core/styles";
-import { red, indigo } from "@material-ui/core/colors";
+import {
+  red,
+  teal,
+  amber,
+  deepOrange,
+  indigo,
+  lightBlue
+} from "@material-ui/core/colors";
 
 const theme = createMuiTheme({
   palette: {
-    primary: red,
-    secondary: indigo
+    primary: teal,
+    secondary: red
     // secondary: "#ffffff"
   }
 });

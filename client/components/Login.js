@@ -57,6 +57,8 @@ const Login = ({ setUser, setJwt }) => {
         Button,
         {
           type: "submit",
+          color: "primary",
+          variant: "contained",
           className: styles.button
         },
         "Log in"
