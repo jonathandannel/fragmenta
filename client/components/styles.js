@@ -61,6 +61,11 @@ export const appStyles = makeStyles(() => ({
   },
   link: {
     textDecoration: "none"
+  },
+  loadingSpinner: {
+    display: "flex",
+    justifyContent: "center",
+    padding: "8rem"
   }
 }));
 
