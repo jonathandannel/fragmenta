@@ -26,7 +26,7 @@ export const appMenuStyles = makeStyles(() => ({
   menuPaper: {
     paddingTop: "5rem",
     height: "100vh",
-    width: "25vw"
+    width: "20vw"
   }
 }));
 
@@ -61,7 +61,7 @@ export const appStyles = makeStyles(() => ({
     display: "flex",
     marginTop: "7rem",
     height: "100vh",
-    width: "75vw"
+    width: "100%"
   },
   appWrapper: {
     display: "flex",
@@ -84,9 +84,6 @@ export const headerStyles = makeStyles(({ spacing, palette }) => ({
   userInfo: {
     display: "flex"
   },
-  appBar: {
-    background: "white"
-  },
   link: {
     textDecoration: "none"
   },
@@ -97,6 +94,7 @@ export const headerStyles = makeStyles(({ spacing, palette }) => ({
   userName: {
     display: "flex",
     flexDirection: "column",
+    color: "white",
     justifyContent: "space-around"
   },
   loginActions: {
@@ -107,9 +105,12 @@ export const headerStyles = makeStyles(({ spacing, palette }) => ({
   },
   userNameText: {
     fontWeight: 600,
-    transform: "scale(0.98)",
+    transform: "scale(0.98) translateY(0.1rem)",
     marginRight: spacing(1),
-    color: palette.secondary.light
+    color: "white"
+  },
+  logo: {
+    color: "white"
   },
   grow: {
     flexGrow: 1

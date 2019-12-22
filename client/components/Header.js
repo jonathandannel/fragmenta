@@ -35,18 +35,14 @@ const Header = ({ user, setUser, setJwt, history }) => {
 
   return h(
     AppBar,
-    { className: styles.appBar, elevation: 1 },
+    { className: styles.appBar, elevation: 0, color: "primary" },
     h(
       Toolbar,
       { className: styles.toolBar },
       h(
         Link,
         { className: styles.link, to: "/app" },
-        h(
-          Typography,
-          { className: styles.logo, variant: "h5", color: "primary" },
-          "myriad"
-        )
+        h(Typography, { className: styles.logo, variant: "h5" }, "myriad")
       ),
       h("div", { className: styles.grow }),
       loggedIn
