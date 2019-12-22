@@ -6,7 +6,7 @@ export const loginFormStyles = makeStyles(() => ({
     flexDirection: "column"
   },
   formPaper: {
-    padding: "5rem"
+    padding: "4.5rem"
   },
   textField: {
     marginBottom: "1.5rem"
@@ -17,7 +17,8 @@ export const loginFormStyles = makeStyles(() => ({
   button: {
     width: "100%",
     fontWeight: "bold",
-    marginTop: "1.5rem"
+    marginTop: "1.25rem",
+    padding: "0.5rem"
   }
 }));
 

@@ -58,7 +58,9 @@ const Splash = () => {
       {
         className: styles.loginDialog,
         open: loginDialog,
-        onClose: () => setLoginDialog(false)
+        onClose: () => setLoginDialog(false),
+        maxWidth: "sm",
+        fullWidth: true
       },
       h(Login)
     ),
@@ -67,10 +69,11 @@ const Splash = () => {
       {
         className: styles.loginDialog,
         open: registerDialog,
-        onClose: () => setRegisterDialog(false)
+        onClose: () => setRegisterDialog(false),
+        maxWidth: "sm",
+        fullWidth: true
       },
-      h(DialogTitle, null, "Register"),
-      h(DialogContent, null, h(DialogContentText, null, h(Register)))
+      h(Register)
     )
   );
 };
