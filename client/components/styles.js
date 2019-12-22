@@ -21,13 +21,21 @@ export const loginFormStyles = makeStyles(() => ({
   }
 }));
 
+export const appMenuStyles = makeStyles(() => ({
+  menuPaper: {
+    paddingTop: "5rem",
+    height: "100vh",
+    width: "25vw"
+  }
+}));
+
 export const splashStyles = makeStyles(() => ({
   main: {
     padding: "5rem",
     justifyContent: "center",
     alignSelf: "center",
     display: "flex",
-    marginTop: "7rem",
+    marginTop: "5.5rem",
     minHeight: "50vh"
   },
   loginActions: {
@@ -48,16 +56,19 @@ export const splashStyles = makeStyles(() => ({
 
 export const appStyles = makeStyles(() => ({
   main: {
-    padding: "5rem",
     justifyContent: "center",
     alignSelf: "center",
     display: "flex",
     marginTop: "7rem",
-    minHeight: "50vh"
+    height: "100vh",
+    width: "75vw"
   },
   appWrapper: {
     display: "flex",
     flexDirection: "column"
+  },
+  splitPane: {
+    display: "flex"
   },
   link: {
     textDecoration: "none"
@@ -97,7 +108,8 @@ export const headerStyles = makeStyles(({ spacing, palette }) => ({
   userNameText: {
     fontWeight: 600,
     transform: "scale(0.98)",
-    marginRight: spacing(1)
+    marginRight: spacing(1),
+    color: palette.secondary.light
   },
   grow: {
     flexGrow: 1

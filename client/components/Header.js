@@ -35,7 +35,7 @@ const Header = ({ user, setUser, setJwt }) => {
 
   return h(
     AppBar,
-    { className: styles.appBar },
+    { className: styles.appBar, elevation: 1 },
     h(
       Toolbar,
       { className: styles.toolBar },
@@ -60,8 +60,7 @@ const Header = ({ user, setUser, setJwt }) => {
                 Typography,
                 {
                   className: styles.userNameText,
-                  variant: "subtitle1",
-                  color: "secondary"
+                  variant: "subtitle1"
                 },
                 user.username
               )
