@@ -1,6 +1,6 @@
 const User = require("../../models").User;
 const express = require("express");
-const checkToken = require("../../util").checkToken;
+const checkToken = require("../../jwt").checkToken;
 
 const router = express.Router();
 router.use(checkToken);

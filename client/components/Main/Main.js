@@ -5,6 +5,7 @@ import { withRouter, Route, Switch } from "react-router-dom";
 
 import Header from "../Header";
 import AppMenu from "./MainMenu";
+import Upload from "./Upload";
 
 import { appStyles } from "../styles";
 

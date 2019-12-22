@@ -1,5 +1,12 @@
 import { createElement as h, useState } from "react";
-import { Typography, Button, Dialog } from "@material-ui/core";
+import {
+  Typography,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText
+} from "@material-ui/core";
 
 import { splashStyles } from "./styles";
 
@@ -62,7 +69,8 @@ const Splash = () => {
         open: registerDialog,
         onClose: () => setRegisterDialog(false)
       },
-      h(Register)
+      h(DialogTitle, null, "Register"),
+      h(DialogContent, null, h(DialogContentText, null, h(Register)))
     )
   );
 };

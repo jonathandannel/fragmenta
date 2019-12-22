@@ -48,7 +48,6 @@ export const splashStyles = makeStyles(() => ({
   },
   splashContent: {
     display: "flex",
-    marginRight: "5rem",
     marginTop: "2rem",
     flexDirection: "column"
   }
