@@ -1,7 +1,7 @@
 import { createElement as h } from "react";
 import { Typography } from "@material-ui/core";
 
-import { withRouter } from "react-router-dom";
+import { withRouter, Route, Switch } from "react-router-dom";
 
 import Header from "./Header";
 import AppMenu from "./AppMenu";
@@ -23,7 +23,26 @@ const Main = ({ user, setUser, setJwt }) => {
           h(
             "div",
             { className: styles.main },
-            h(Typography, { variant: "h6" }, `Welcome back, ${user.username}`)
+            h(
+              Switch,
+              null,
+              h(
+                Route,
+                { exact: true, path: "/app/edit" },
+                h(Typography, { variant: "h2" }, "Edit")
+              ),
+              h(
+                Route,
+                { exact: true, path: "/app/upload" },
+                h(Typography, { variant: "h6" }, "Upload")
+              ),
+
+              h(
+                Route,
+                { exact: true, path: "/app/collection" },
+                h(Typography, { variant: "h6" }, "Collection")
+              )
+            )
           )
         )
       )
