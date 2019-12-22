@@ -1,4 +1,5 @@
-import { createElement as h, useRef, useState } from "react";
+import { createElement as h, useRef, useState, useEffect } from "react";
+import { withRouter } from "react-router-dom";
 import {
   List,
   ListItem,
@@ -10,9 +11,15 @@ import {
 import { CloudUpload, CropRotate, Send, Collections } from "@material-ui/icons";
 import { appMenuStyles } from "./styles";
 
-const AppMenu = ({}) => {
+const AppMenu = ({ history }) => {
   const styles = appMenuStyles();
   const [selectedIndex, setSelectedIndex] = useState(0);
+
+  useEffect(() => {
+    if (selectedIndex === 0) {
+      history.push("/app/upload");
+    }
+  }, []);
 
   return h(
     Paper,
@@ -25,7 +32,10 @@ const AppMenu = ({}) => {
         {
           button: true,
           selected: selectedIndex === 0,
-          onClick: () => setSelectedIndex(0)
+          onClick: () => {
+            setSelectedIndex(0);
+            history.push("/app/upload");
+          }
         },
         h(ListItemIcon, {}, h(CloudUpload)),
         h(ListItemText, {}, "Upload")
@@ -35,7 +45,10 @@ const AppMenu = ({}) => {
         {
           button: true,
           selected: selectedIndex === 1,
-          onClick: () => setSelectedIndex(1)
+          onClick: () => {
+            setSelectedIndex(1);
+            history.push("/app/edit");
+          }
         },
         h(ListItemIcon, {}, h(CropRotate)),
         h(ListItemText, {}, "Edit")
@@ -45,23 +58,29 @@ const AppMenu = ({}) => {
         {
           button: true,
           selected: selectedIndex === 2,
-          onClick: () => setSelectedIndex(2)
+          onClick: () => {
+            setSelectedIndex(2);
+            history.push("/app/collection");
+          }
         },
-        h(ListItemIcon, {}, h(Send)),
-        h(ListItemText, {}, "Export")
+        h(ListItemIcon, {}, h(Collections)),
+        h(ListItemText, {}, "Collection")
       ),
       h(
         ListItem,
         {
           button: true,
           selected: selectedIndex === 3,
-          onClick: () => setSelectedIndex(3)
+          onClick: () => {
+            setSelectedIndex(3);
+            history.push("/app/export");
+          }
         },
-        h(ListItemIcon, {}, h(Collections)),
-        h(ListItemText, {}, "Collection")
+        h(ListItemIcon, {}, h(Send)),
+        h(ListItemText, {}, "Export")
       )
     )
   );
 };
 
-export default AppMenu;
+export default withRouter(AppMenu);

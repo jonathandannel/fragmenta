@@ -1,10 +1,11 @@
 import { createElement as h, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Switch, Route, withRouter } from "react-router-dom";
-import { verifyToken } from "../api";
 import { CircularProgress } from "@material-ui/core";
 
 import { setUser, setJwt } from "../actions/userActions";
+import { verifyToken } from "../api";
+
 import Splash from "./Splash";
 import Main from "./Main";
 import { appStyles } from "./styles";

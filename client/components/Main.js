@@ -28,19 +28,23 @@ const Main = ({ user, setUser, setJwt }) => {
               null,
               h(
                 Route,
+                { exact: true, path: "/app/upload" },
+                h(Typography, { variant: "h2" }, "Upload")
+              ),
+              h(
+                Route,
                 { exact: true, path: "/app/edit" },
                 h(Typography, { variant: "h2" }, "Edit")
               ),
               h(
                 Route,
-                { exact: true, path: "/app/upload" },
-                h(Typography, { variant: "h6" }, "Upload")
+                { exact: true, path: "/app/collection" },
+                h(Typography, { variant: "h2" }, "Collection")
               ),
-
               h(
                 Route,
-                { exact: true, path: "/app/collection" },
-                h(Typography, { variant: "h6" }, "Collection")
+                { exact: true, path: "/app/export" },
+                h(Typography, { variant: "h2" }, "Export")
               )
             )
           )
