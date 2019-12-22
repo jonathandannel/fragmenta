@@ -1,4 +1,4 @@
-import { createElement as h, useRef, useState, useEffect } from "react";
+import { createElement as h, useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import {
   List,
@@ -9,9 +9,9 @@ import {
 } from "@material-ui/core";
 
 import { CloudUpload, CropRotate, Send, Collections } from "@material-ui/icons";
-import { appMenuStyles } from "./styles";
+import { appMenuStyles } from "../styles";
 
-const AppMenu = ({ history }) => {
+const MainMenu = ({ history }) => {
   const styles = appMenuStyles();
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -83,4 +83,4 @@ const AppMenu = ({ history }) => {
   );
 };
 
-export default withRouter(AppMenu);
+export default withRouter(MainMenu);

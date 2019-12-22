@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 
 import { withRouter } from "react-router-dom";
-import { loginFormStyles } from "./styles";
-import useLoginForm from "../hooks/useLoginForm";
-import { login } from "../api";
+import { loginFormStyles } from "../styles";
+import useLoginForm from "../../hooks/useLoginForm";
+import { login } from "../../api";
 
-import { setUser, setJwt } from "../actions/userActions";
+import { setUser, setJwt } from "../../actions/userActions";
 
 const mapDispatchToProps = dispatch => ({
   setUser: user => dispatch(setUser(user)),

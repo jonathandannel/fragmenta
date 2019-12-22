@@ -1,8 +1,8 @@
 import { createElement as h, useState } from "react";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
-import { loginFormStyles } from "./styles";
-import useRegisterForm from "../hooks/useRegisterForm";
-import { register } from "../api";
+import { loginFormStyles } from "../styles";
+import useRegisterForm from "../../hooks/useRegisterForm";
+import { register } from "../../api";
 
 const Register = () => {
   const requestRegistration = fieldValues => {

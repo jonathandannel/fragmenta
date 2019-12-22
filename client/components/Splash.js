@@ -3,8 +3,8 @@ import { Typography, Button, Dialog } from "@material-ui/core";
 
 import { splashStyles } from "./styles";
 
-import Register from "./Register";
-import Login from "./Login";
+import Register from "./Auth/Register";
+import Login from "./Auth/Login";
 
 const Splash = () => {
   const styles = splashStyles();

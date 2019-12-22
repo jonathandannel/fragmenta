@@ -7,7 +7,7 @@ import { setUser, setJwt } from "../actions/userActions";
 import { verifyToken } from "../api";
 
 import Splash from "./Splash";
-import Main from "./Main";
+import Main from "./Main/Main";
 import { appStyles } from "./styles";
 
 const mapStateToProps = state => {
@@ -19,7 +19,7 @@ const mapDispatchToProps = dispatch => ({
   setJwt: token => dispatch(setJwt(token))
 });
 
-const App = ({ user, setUser, setJwt, history }) => {
+const AppContainer = ({ user, setUser, setJwt, history }) => {
   const styles = appStyles();
   const [userChecked, setUserChecked] = useState(false);
 
@@ -61,4 +61,6 @@ const App = ({ user, setUser, setJwt, history }) => {
       );
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(AppContainer)
+);
