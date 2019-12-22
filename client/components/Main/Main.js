@@ -27,11 +27,7 @@ const Main = ({ user, setUser, setJwt }) => {
             h(
               Switch,
               null,
-              h(
-                Route,
-                { exact: true, path: "/app/upload" },
-                h(Typography, { variant: "h2" }, "Upload")
-              ),
+              h(Route, { exact: true, path: "/app/upload" }, h(Upload)),
               h(
                 Route,
                 { exact: true, path: "/app/edit" },
