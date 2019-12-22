@@ -11,7 +11,7 @@ const update = (req, res, next) => {
 router.use(update);
 
 router.get("/", (req, res, next) => {
-  return res.sendFile(path.join(__dirname, "../public/index.html"), err => {
+  return res.sendFile(path.join(__dirname, "../public"), err => {
     if (err) res.status(500).send(err);
   });
 });
