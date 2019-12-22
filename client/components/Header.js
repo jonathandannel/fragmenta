@@ -1,5 +1,5 @@
 import { createElement as h, useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import {
   AppBar,
   Button,
@@ -19,7 +19,7 @@ import { Settings, ExitToApp, Face } from "@material-ui/icons";
 
 import { headerStyles } from "./styles";
 
-const Header = ({ user, setUser, setJwt }) => {
+const Header = ({ user, setUser, setJwt, history }) => {
   const styles = headerStyles();
   const userMenuAnchor = useRef();
 
@@ -29,6 +29,7 @@ const Header = ({ user, setUser, setJwt }) => {
     setUser(null);
     setJwt(null);
     localStorage.removeItem("jwt");
+    history.push("/");
   };
 
   const loggedIn = user !== null;
@@ -41,7 +42,7 @@ const Header = ({ user, setUser, setJwt }) => {
       { className: styles.toolBar },
       h(
         Link,
-        { className: styles.link, to: "/" },
+        { className: styles.link, to: "/app" },
         h(
           Typography,
           { className: styles.logo, variant: "h5", color: "primary" },
@@ -147,4 +148,4 @@ const Header = ({ user, setUser, setJwt }) => {
   );
 };
 
-export default Header;
+export default withRouter(Header);

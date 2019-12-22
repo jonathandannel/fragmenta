@@ -1,4 +1,4 @@
-import { createElement as h, useState, useEffect } from "react";
+import { createElement as h, useState } from "react";
 import { Typography, Button, Dialog } from "@material-ui/core";
 
 import { splashStyles } from "./styles";
@@ -6,7 +6,7 @@ import { splashStyles } from "./styles";
 import Register from "./Register";
 import Login from "./Login";
 
-const Splash = ({ user }) => {
+const Splash = () => {
   const styles = splashStyles();
 
   const [loginDialog, setLoginDialog] = useState(false);

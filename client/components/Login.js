@@ -1,6 +1,8 @@
 import { createElement as h, useState } from "react";
 import { connect } from "react-redux";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
+
+import { withRouter } from "react-router-dom";
 import { loginFormStyles } from "./styles";
 import useLoginForm from "../hooks/useLoginForm";
 import { login } from "../api";
@@ -12,7 +14,7 @@ const mapDispatchToProps = dispatch => ({
   setJwt: token => dispatch(setJwt(token))
 });
 
-const Login = ({ setUser, setJwt }) => {
+const Login = ({ setUser, setJwt, history }) => {
   const requestLogin = fieldValues =>
     login(fieldValues).then(({ message, token, user, success }) => {
       setSubmissionStatus({
@@ -22,6 +24,7 @@ const Login = ({ setUser, setJwt }) => {
       if (success) {
         setUser(user);
         setJwt(token);
+        history.push("/app");
       }
     });
 
@@ -79,4 +82,4 @@ const Login = ({ setUser, setJwt }) => {
   );
 };
 
-export default connect(null, mapDispatchToProps)(Login);
+export default withRouter(connect(null, mapDispatchToProps)(Login));
