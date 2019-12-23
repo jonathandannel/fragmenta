@@ -13,7 +13,7 @@ router.get("/", (req, res, next) => {
     }
   }).then(user => {
     if (user) {
-      return res.status(200).send(dataValues);
+      return res.status(200).send(user.dataValues);
     }
     return res.status(500);
   });
