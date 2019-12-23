@@ -8,12 +8,13 @@ const images = (state = initialState, action) => {
   switch (action.type) {
     case ADD_IMAGE:
       const { image } = action;
+      debugger;
       return {
         ...state,
-        userImages: [...userImages, image]
+        userImages: [...userImages, { ...image }]
       };
     default:
-      return state;
+      return { ...state };
   }
 };
 

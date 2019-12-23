@@ -41,6 +41,7 @@ const Upload = ({ images, addImage }) => {
       }
     },
     uploadStatus && h(Typography, { variant: "caption" }, uploadStatus),
+    h(Typography, { variant: "caption" }, images.length),
     h(
       "form",
       {},

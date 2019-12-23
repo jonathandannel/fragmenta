@@ -9,6 +9,8 @@ import Header from "../Header";
 import AppMenu from "./MainMenu";
 import Upload from "./Upload";
 
+import { addImage } from "../../actions/imageActions";
+
 import { appStyles } from "../styles";
 
 const mapStateToProps = state => {
@@ -16,11 +18,12 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  addImage: user => dispatch(addImage(image))
+  addImage: image => dispatch(addImage(image))
 });
 
 const Main = ({ user, setUser, setJwt, images, addImage }) => {
   const styles = appStyles();
+  console.log(images);
 
   return user
     ? h(
