@@ -1,4 +1,4 @@
-import { createElement as h } from "react";
+import { createElement as h, useEffect } from "react";
 import { Typography } from "@material-ui/core";
 
 import { connect } from "react-redux";
@@ -9,7 +9,7 @@ import Header from "../Header";
 import AppMenu from "./MainMenu";
 import Upload from "./Upload";
 
-import { addImage } from "../../actions/imageActions";
+import { setAllUserImages, addImage } from "../../actions/imageActions";
 
 import { appStyles } from "../styles";
 
@@ -18,12 +18,35 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  addImage: image => dispatch(addImage(image))
+  addImage: image => dispatch(addImage(image)),
+  setAllUserImages: images => dispatch(setAllUserImages(images))
 });
 
-const Main = ({ user, setUser, setJwt, images, addImage }) => {
+const Main = ({
+  user,
+  setUser,
+  setJwt,
+  images,
+  setAllUserImages,
+  addImage
+}) => {
   const styles = appStyles();
-  console.log(images);
+
+  useEffect(() => {
+    fetch(`/api/images/${user.userid}`, {
+      method: "get",
+      headers: {
+        authorization: localStorage.getItem("jwt")
+      }
+    })
+      .then(res => res.json())
+      .then(images => {
+        const v = images;
+
+        debugger;
+        setAllUserImages(images);
+      });
+  }, []);
 
   return user
     ? h(

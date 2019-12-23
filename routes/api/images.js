@@ -24,6 +24,24 @@ const parser = multer({ storage: storage });
 const router = express.Router();
 router.use(checkToken);
 
+router.get("/:userid", (req, res) => {
+  console.log(req.params);
+  const { userid } = req.params;
+  Image.getAllByUserId({ userid }).then(images => {
+    if (!images) {
+      res.status(500).json({
+        success: false,
+        message: "Images not fetched"
+      });
+    }
+    res.status(200).json({
+      images,
+      message: "Images fetched successfully",
+      success: true
+    });
+  });
+});
+
 router.post("/upload", parser.single("image"), (req, res) => {
   if (req) {
     Image.createNew({ url: req.file.url, userid: req.decoded.userid }).then(
