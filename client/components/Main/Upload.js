@@ -5,9 +5,14 @@ import { Add } from "@material-ui/icons";
 
 import { appStyles } from "../styles";
 
-const Upload = ({}) => {
+const Upload = ({ images, addImage }) => {
   const styles = appStyles();
   const inputRef = useRef();
+
+  const [uploadStatus, setUploadStatus] = useState(null);
+
+  const f = images;
+  debugger;
 
   const handleFile = image => {
     const formData = new FormData();
@@ -17,12 +22,25 @@ const Upload = ({}) => {
       method: "post",
       headers: { authorization: localStorage.getItem("jwt") },
       body: formData
-    });
+    })
+      .then(res => res.json())
+      .then(({ success, message, path, image }) => {
+        setUploadStatus(message);
+        addImage(image);
+      });
   };
 
   return h(
     "div",
-    { style: { width: "75%", display: "flex", flexDirection: "column" } },
+    {
+      style: {
+        width: "75%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center"
+      }
+    },
+    uploadStatus && h(Typography, { variant: "caption" }, uploadStatus),
     h(
       "form",
       {},

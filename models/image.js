@@ -16,11 +16,18 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Image.createNew = ({ url, userid }) => {
-    // TODO: Add some checks
     return Image.create({
       imageid: uuid(),
       path: url,
       userid
+    });
+  };
+
+  Image.getAllByUserId = ({ userid }) => {
+    return Image.findAll({
+      where: {
+        userid
+      }
     });
   };
 

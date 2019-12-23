@@ -1,6 +1,8 @@
 import { createElement as h } from "react";
 import { Typography } from "@material-ui/core";
 
+import { connect } from "react-redux";
+
 import { withRouter, Route, Switch } from "react-router-dom";
 
 import Header from "../Header";
@@ -9,7 +11,15 @@ import Upload from "./Upload";
 
 import { appStyles } from "../styles";
 
-const Main = ({ user, setUser, setJwt }) => {
+const mapStateToProps = state => {
+  return { images: state.images.userImages };
+};
+
+const mapDispatchToProps = dispatch => ({
+  addImage: user => dispatch(addImage(image))
+});
+
+const Main = ({ user, setUser, setJwt, images, addImage }) => {
   const styles = appStyles();
 
   return user
@@ -27,7 +37,11 @@ const Main = ({ user, setUser, setJwt }) => {
             h(
               Switch,
               null,
-              h(Route, { exact: true, path: "/app/upload" }, h(Upload)),
+              h(
+                Route,
+                { exact: true, path: "/app/upload" },
+                h(Upload, { images, addImage })
+              ),
               h(
                 Route,
                 { exact: true, path: "/app/edit" },
@@ -50,4 +64,4 @@ const Main = ({ user, setUser, setJwt }) => {
     : null;
 };
 
-export default withRouter(Main);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));

@@ -27,12 +27,12 @@ router.use(checkToken);
 router.post("/upload", parser.single("image"), (req, res) => {
   if (req) {
     Image.createNew({ url: req.file.url, userid: req.decoded.userid }).then(
-      after => {
-        console.log(after, "after create");
+      image => {
         return res.json({
           success: true,
           message: "Image uploaded successfully",
-          path: req.file.url
+          path: req.file.url,
+          image
         });
       }
     );

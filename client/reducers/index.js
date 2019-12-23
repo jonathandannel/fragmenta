@@ -4,7 +4,7 @@ import other from "./other";
 
 const rootReducer = combineReducers({
   auth,
-  other
+  images
 });
 
 export default rootReducer;
