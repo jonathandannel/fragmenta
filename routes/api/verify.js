@@ -6,10 +6,11 @@ const router = express.Router();
 router.use(checkToken);
 
 router.get("/", (req, res, next) => {
-  const { username } = req.decoded;
+  const { username, userid } = req.decoded;
   User.findOne({
     where: {
-      username
+      username,
+      userid
     }
   }).then(user => {
     if (user) {
