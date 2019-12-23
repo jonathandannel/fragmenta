@@ -50,10 +50,14 @@ router.post("/login", (req, res, next) => {
             })
             .end();
         } else {
-          const token = jwt.sign({ username }, process.env.JWT_SECRET, {
-            expiresIn: "2d",
-            issuer: "myriad"
-          });
+          const token = jwt.sign(
+            { username, userid: user.dataValues.userid },
+            process.env.JWT_SECRET,
+            {
+              expiresIn: "2d",
+              issuer: "myriad"
+            }
+          );
           res
             .status(200)
             .json({

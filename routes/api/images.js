@@ -25,11 +25,23 @@ const router = express.Router();
 router.use(checkToken);
 
 router.post("/upload", parser.single("image"), (req, res) => {
-  console.log(req.file);
-  const { url, public_id } = req.file;
-  // Image.create(image) // save image information in database
-  //   .then(newImage => res.json(newImage))
-  //   .catch(err => console.log(err));
+  if (req) {
+    Image.createNew({ url: req.file.url, userid: req.decoded.userid }).then(
+      after => {
+        console.log(after, "after create");
+        return res.json({
+          success: true,
+          message: "Image uploaded successfully",
+          path: req.file.url
+        });
+      }
+    );
+  } else {
+    return res.status(500).json({
+      success: false,
+      message: "Error uploading image"
+    });
+  }
 });
 
 module.exports = router;

@@ -6,6 +6,7 @@ import { Add } from "@material-ui/icons";
 import { appStyles } from "../styles";
 
 const Upload = ({}) => {
+  const styles = appStyles();
   const inputRef = useRef();
 
   const handleFile = image => {
