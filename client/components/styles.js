@@ -26,7 +26,7 @@ export const appMenuStyles = makeStyles(() => ({
   menuPaper: {
     paddingTop: "5rem",
     height: "100vh",
-    width: "20vw"
+    width: "23vw"
   }
 }));
 
