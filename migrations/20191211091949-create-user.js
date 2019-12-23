@@ -7,8 +7,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: false,
         primaryKey: true,
-        type: Sequelize.UUID,
-        defaultValue: () => uuid()
+        type: Sequelize.UUID
       },
       username: {
         type: Sequelize.STRING

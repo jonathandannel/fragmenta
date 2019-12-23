@@ -11,8 +11,11 @@ router.get("/", (req, res, next) => {
     where: {
       username
     }
-  }).then(({ dataValues }) => {
-    res.status(200).send(dataValues);
+  }).then(user => {
+    if (user) {
+      return res.status(200).send(dataValues);
+    }
+    return res.status(500);
   });
 });
 

@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const bcrypt = require("bcrypt");
+const uuid = require("uuid/v4");
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
@@ -21,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     bcrypt.hash(password, saltRounds, (err, hash) => {
       if (hash && !err) {
         User.create({
+          userid: uuid(),
           username,
           email,
           password: hash
