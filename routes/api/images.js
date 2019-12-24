@@ -25,7 +25,6 @@ const router = express.Router();
 router.use(checkToken);
 
 router.get("/:userid", (req, res) => {
-  console.log(req.params);
   const { userid } = req.params;
   Image.getAllByUserId({ userid }).then(images => {
     if (!images) {

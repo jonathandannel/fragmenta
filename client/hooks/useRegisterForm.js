@@ -22,15 +22,15 @@ const useRegisterForm = cb => {
         error = "Password must be between 4 and 20 characters";
       }
       if (!validRegex.test(trimmed)) {
-        error = "Passwords may only contain alphanumeric characters";
+        error = "Passwords may only contain alphanumeric characters.";
       }
     }
     if (name === "username") {
       if (trimmed.length < 4 || trimmed.length > 20) {
-        error = "Username must be between 4 and 20 characters";
+        error = "Username must be between 4 and 20 characters.";
       }
       if (!validRegex.test(trimmed)) {
-        error = "Username may only contain alphanumeric characters";
+        error = "Username may only contain alphanumeric characters.";
       }
     }
     return error;
@@ -43,7 +43,7 @@ const useRegisterForm = cb => {
     let errors = [];
 
     if (Object.keys(values).length !== 3) {
-      setValidationErrors([...validationErrors, "All fields are mandatory"]);
+      setValidationErrors([...validationErrors, "All fields are mandatory."]);
       return;
     }
 

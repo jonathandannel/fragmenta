@@ -25,7 +25,7 @@ const Upload = ({ userImages, addImage }) => {
     setUploadStatus(null);
     const formData = new FormData();
     formData.append("image", image);
-    uploadImage.then(({ success, message, path, image }) => {
+    uploadImage(formData).then(({ success, message, path, image }) => {
       if (success) {
         setUploadStatus(message);
         addImage(image);
@@ -40,7 +40,7 @@ const Upload = ({ userImages, addImage }) => {
     },
     h(
       "form",
-      {},
+      { className: styles.form },
       h("input", {
         ref: inputRef,
         type: "file",
@@ -58,16 +58,16 @@ const Upload = ({ userImages, addImage }) => {
         "Upload"
       )
     ),
-    h(Divider, { style: { marginBottom: "1rem" } }),
+    h(Divider, { style: { margin: "1rem 0rem 1rem 0rem" } }),
     h(
       "div",
       {
         className: styles.uploadGallery
       },
-      userImages.map(({ path }) =>
+      userImages.map(({ path, imageid }) =>
         h(
           Button,
-          { onClick: () => setSelectedImagePath(path) },
+          { key: imageid, onClick: () => setSelectedImagePath(path) },
           h("img", {
             className: styles.imageThumbnail,
             src: path

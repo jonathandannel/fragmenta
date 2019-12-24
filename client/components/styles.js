@@ -8,12 +8,10 @@ export const uploadStyles = makeStyles(() => ({
   },
   uploadGallery: {
     display: "flex",
-    justifyContent: "space-between",
     flexWrap: "wrap"
   },
   imageThumbnail: {
-    height: 200,
-    width: 200,
+    maxHeight: 200,
     transform: "scale(0.8)"
   },
   checkIcon: {
@@ -26,6 +24,9 @@ export const uploadStyles = makeStyles(() => ({
     justifyContent: "space-evenly",
     color: "white",
     marginLeft: "1rem"
+  },
+  form: {
+    marginLeft: "2rem"
   }
 }));
 
@@ -39,20 +40,24 @@ export const editStyles = makeStyles(() => ({
   },
   uploadGallery: {
     display: "flex",
-    justifyContent: "space-between",
-    flexWrap: "wrap"
+    flexDirection: "column"
   },
   imageOutput: {
     marginTop: "1rem",
     alignSelf: "center "
   },
   imageThumbnail: {
-    height: 200,
-    width: 200,
+    maxHeight: 200,
     transform: "scale(0.8)"
   },
   spinner: {
     transform: "translateY(5rem)"
+  },
+  choices: {
+    width: "50%",
+    alignSelf: "center",
+    display: "flex",
+    justifyContent: "space-evenly"
   }
 }));
 

@@ -1,6 +1,12 @@
 import { createElement as h, useRef, useState, useEffect } from "react";
 import * as faceapi from "face-api.js";
-import { Button, Fab, Dialog, DialogContent } from "@material-ui/core";
+import {
+  Button,
+  Fab,
+  Dialog,
+  DialogContent,
+  Typography
+} from "@material-ui/core";
 
 import { loadModels } from "../../facialDetection";
 import LoadingSpinner from "../LoadingSpinner";
@@ -13,6 +19,7 @@ const Edit = ({ userImages }) => {
   const [editFromSelection, setEditFromSelection] = useState(null);
   const [choosing, setChoosing] = useState(true);
   const [modelsLoaded, setModelsLoaded] = useState(false);
+  const [error, setError] = useState(false);
 
   const chosenImage = useRef();
   const canvasOverlay = useRef();
@@ -43,6 +50,11 @@ const Edit = ({ userImages }) => {
       .detectSingleFace(niceImage)
       .withFaceLandmarks();
 
+    if (!detectionsWithLandmarks) {
+      setError(true);
+      return;
+    }
+
     const resizedResults = faceapi.resizeResults(
       detectionsWithLandmarks,
       displaySize
@@ -60,44 +72,45 @@ const Edit = ({ userImages }) => {
         {
           className: styles.mainContainer
         },
-        selectedImagePath &&
-          h(
-            "div",
-            { className: styles.imageOutput },
-            h(
+        selectedImagePath && !error
+          ? h(
               "div",
-              { className: styles.canvasContainer },
-              h("canvas", {
-                ref: canvasOverlay
-              }),
-              h("img", {
-                ref: chosenImage,
-                style: { display: "none" },
-                src: selectedImagePath
-              })
+              { className: styles.imageOutput },
+              h(
+                "div",
+                { className: styles.canvasContainer },
+                h("canvas", {
+                  ref: canvasOverlay
+                }),
+                h("img", {
+                  ref: chosenImage,
+                  style: { display: "none" },
+                  src: selectedImagePath
+                })
+              )
             )
-          ),
+          : !choosing &&
+              h(
+                Typography,
+                { variant: "subtitle1", style: { alignSelf: "center" } },
+                "Unable to find facial features in selected image."
+              ),
         choosing &&
           h(
             "div",
             {
-              style: {
-                width: "50%",
-                alignSelf: "center",
-                display: "flex",
-                justifyContent: "space-evenly"
-              }
+              className: styles.choices
             },
             h(
               Fab,
               {
                 color: "secondary",
-                variant: "contained",
+                variant: "extended",
                 onClick: () => setEditFromSelection("gallery")
               },
               "Choose from uploads"
             ),
-            h(Fab, { color: "secondary", variant: "contained" }, "Use webcam")
+            h(Fab, { color: "secondary", variant: "extended" }, "Use webcam")
           ),
         editFromSelection === "gallery"
           ? h(
@@ -114,10 +127,11 @@ const Edit = ({ userImages }) => {
                   {
                     className: styles.uploadGallery
                   },
-                  userImages.map(({ path }) =>
+                  userImages.map(({ path, imageid }) =>
                     h(
                       Button,
                       {
+                        key: imageid,
                         onClick: () => {
                           setSelectedImagePath(path);
                           setEditFromSelection(null);
