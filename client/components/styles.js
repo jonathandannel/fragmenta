@@ -29,6 +29,33 @@ export const uploadStyles = makeStyles(() => ({
   }
 }));
 
+export const editStyles = makeStyles(() => ({
+  mainContainer: {
+    width: "90%",
+    display: "flex",
+    flexDirection: "column",
+    paddingTop: "2rem",
+    paddingRight: "2rem"
+  },
+  uploadGallery: {
+    display: "flex",
+    justifyContent: "space-between",
+    flexWrap: "wrap"
+  },
+  imageOutput: {
+    marginTop: "1rem",
+    alignSelf: "center "
+  },
+  imageThumbnail: {
+    height: 200,
+    width: 200,
+    transform: "scale(0.8)"
+  },
+  spinner: {
+    transform: "translateY(5rem)"
+  }
+}));
+
 export const loginFormStyles = makeStyles(() => ({
   formContainer: {
     display: "flex",
@@ -88,7 +115,7 @@ export const appStyles = makeStyles(() => ({
     justifyContent: "center",
     alignSelf: "center",
     display: "flex",
-    marginTop: "7rem",
+    paddingTop: "7rem",
     height: "100vh",
     width: "100%"
   },
@@ -102,10 +129,17 @@ export const appStyles = makeStyles(() => ({
   link: {
     textDecoration: "none"
   },
+  spinnerContainer: {
+    display: "flex",
+    height: "100vh",
+    width: "100vw",
+    flexDirection: "column",
+    justifyContent: "space-around",
+    transform: "translateY(-5rem)"
+  },
   loadingSpinner: {
     display: "flex",
-    justifyContent: "center",
-    padding: "8rem"
+    justifyContent: "center"
   }
 }));
 

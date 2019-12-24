@@ -41,13 +41,19 @@ const AppContainer = ({ user, setUser, setJwt, history }) => {
   return !userChecked
     ? h(
         "div",
-        { className: styles.loadingSpinner },
-        h(CircularProgress, {
-          size: 90,
-          thickness: 5,
-          variant: "indeterminate",
-          color: "primary"
-        })
+        {
+          className: styles.spinnerContainer
+        },
+        h(
+          "div",
+          { className: styles.loadingSpinner },
+          h(CircularProgress, {
+            size: 90,
+            thickness: 5,
+            variant: "indeterminate",
+            color: "primary"
+          })
+        )
       )
     : h(
         Switch,

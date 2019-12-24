@@ -1,20 +1,17 @@
 import { createElement as h, useRef, useState, useEffect } from "react";
-import { Button, Fab, Divider, Dialog, DialogContent } from "@material-ui/core";
-
-import { uploadStyles } from "../styles";
-
 import * as faceapi from "face-api.js";
+import { Button, Fab, Dialog, DialogContent } from "@material-ui/core";
 
 import LoadingSpinner from "../LoadingSpinner";
+import { editStyles } from "../styles";
 
 const Edit = ({ userImages }) => {
-  const styles = uploadStyles();
+  const styles = editStyles();
 
   const [selectedImagePath, setSelectedImagePath] = useState(null);
   const [editFromSelection, setEditFromSelection] = useState(null);
   const [choosing, setChoosing] = useState(true);
   const [modelsLoaded, setModelsLoaded] = useState(false);
-  const [drawingDone, setDrawingDone] = useState(false);
 
   const chosenImage = useRef();
   const canvasOverlay = useRef();
@@ -24,7 +21,9 @@ const Edit = ({ userImages }) => {
   }, []);
 
   useEffect(() => {
-    detectAndDrawToCanvas();
+    if (selectedImagePath) {
+      detectAndDrawToCanvas();
+    }
   }, [selectedImagePath]);
 
   const loadModels = async () => {
@@ -42,8 +41,6 @@ const Edit = ({ userImages }) => {
       chosenImage.current.height
     );
 
-    debugger;
-
     niceImage.crossOrigin = "anonymous";
     niceImage.src = selectedImagePath;
 
@@ -51,7 +48,7 @@ const Edit = ({ userImages }) => {
     faceapi.matchDimensions(canvasOverlay.current, displaySize);
 
     const detectionsWithLandmarks = await faceapi
-      .detectAllFaces(niceImage)
+      .detectSingleFace(niceImage)
       .withFaceLandmarks();
 
     const resizedResults = faceapi.resizeResults(
@@ -60,14 +57,12 @@ const Edit = ({ userImages }) => {
     );
 
     canvasOverlay.current.getContext("2d").drawImage(niceImage, 0, 0);
-    // Shows square with percentage chance of a face
-    // faceapi.draw.drawDetections(canvasOverlay.current, resizedResults);
+    faceapi.draw.drawDetections(canvasOverlay.current, resizedResults);
     faceapi.draw.drawFaceLandmarks(canvasOverlay.current, resizedResults);
-    setDrawingDone();
   };
 
-  return !modelsLoaded || (modelsLoaded && selectedImagePath && !drawingDone)
-    ? h(LoadingSpinner)
+  return !modelsLoaded
+    ? h(LoadingSpinner, { className: styles.spinner })
     : h(
         "div",
         {
@@ -76,7 +71,7 @@ const Edit = ({ userImages }) => {
         selectedImagePath &&
           h(
             "div",
-            { style: { marginTop: "1rem", alignSelf: "center " } },
+            { className: styles.imageOutput },
             h(
               "div",
               { className: styles.canvasContainer },
@@ -120,24 +115,28 @@ const Edit = ({ userImages }) => {
                 onClose: () => setEditFromSelection(null)
               },
               h(
-                "div",
-                {
-                  className: styles.uploadGallery
-                },
-                userImages.map(({ path }) =>
-                  h(
-                    Button,
-                    {
-                      onClick: () => {
-                        setSelectedImagePath(path);
-                        setEditFromSelection(null);
-                        setChoosing(false);
-                      }
-                    },
-                    h("img", {
-                      className: styles.imageThumbnail,
-                      src: path
-                    })
+                DialogContent,
+                null,
+                h(
+                  "div",
+                  {
+                    className: styles.uploadGallery
+                  },
+                  userImages.map(({ path }) =>
+                    h(
+                      Button,
+                      {
+                        onClick: () => {
+                          setSelectedImagePath(path);
+                          setEditFromSelection(null);
+                          setChoosing(false);
+                        }
+                      },
+                      h("img", {
+                        className: styles.imageThumbnail,
+                        src: path
+                      })
+                    )
                   )
                 )
               )
