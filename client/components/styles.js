@@ -45,11 +45,15 @@ export const editStyles = makeStyles(() => ({
   },
   webcamContainer: {
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
+    padding: "3rem",
+    width: "fit-content"
   },
   imageOutput: {
-    marginTop: "1rem",
-    alignSelf: "center "
+    display: "flex",
+    justifyContent: "center",
+    padding: "3rem",
+    width: "fit-content"
   },
   imageThumbnail: {
     maxHeight: 200,
@@ -62,6 +66,9 @@ export const editStyles = makeStyles(() => ({
     marginRight: "2.5rem"
   },
   fabIcon: {
+    marginRight: "0.25rem"
+  },
+  fabIconLg: {
     marginRight: "0.75rem"
   },
   photoActions: {

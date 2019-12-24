@@ -6,7 +6,8 @@ import {
   Dialog,
   DialogContent,
   Typography,
-  Divider
+  Divider,
+  Paper
 } from "@material-ui/core";
 import { SaveAlt, CameraAlt, CloudUpload } from "@material-ui/icons";
 
@@ -94,7 +95,7 @@ const Edit = ({ userImages }) => {
   };
 
   const drawWebcamCanvas = async () => {
-    const displaySize = { width: 640, height: 480 };
+    const displaySize = { width: 720, height: 576 };
     faceapi.matchDimensions(videoRef.current, displaySize);
 
     const detectionsWithLandmarks = await faceapi
@@ -111,7 +112,7 @@ const Edit = ({ userImages }) => {
       displaySize
     );
 
-    webcamCanvasRef.current.getContext("2d").clearRect(0, 0, 640, 480);
+    webcamCanvasRef.current.getContext("2d").clearRect(0, 0, 720, 576);
     faceapi.draw.drawDetections(webcamCanvasRef.current, resizedResults);
     faceapi.draw.drawFaceLandmarks(webcamCanvasRef.current, resizedResults);
   };
@@ -137,7 +138,9 @@ const Edit = ({ userImages }) => {
                 className: styles.fab,
                 onClick: () => setEditFromSelection("gallery")
               },
-              h(CloudUpload, { className: styles.fabIcon }),
+              h(CloudUpload, {
+                className: styles.fabIconLg
+              }),
               "Choose from uploads"
             ),
             h(
@@ -151,7 +154,7 @@ const Edit = ({ userImages }) => {
                   setChoosing(false);
                 }
               },
-              h(CameraAlt, { className: styles.fabIcon }),
+              h(CameraAlt, { className: styles.fabIconLg }),
               "Use webcam"
             )
           ),
@@ -188,26 +191,26 @@ const Edit = ({ userImages }) => {
         h(Divider, { className: styles.divider }),
         useWebcam &&
           h(
-            "div",
-            { className: styles.webcamContainer },
+            Paper,
+            { elevation: 3, className: styles.webcamContainer },
             h("canvas", {
-              width: 640,
-              height: 480,
+              width: 720,
+              height: 576,
               ref: webcamCanvasRef,
               style: { position: "absolute" }
             }),
             h("video", {
               ref: videoRef,
-              width: 640,
-              height: 480,
+              width: 720,
+              height: 576,
               autoPlay: true,
               muted: true
             })
           ),
         selectedImagePath && !error
           ? h(
-              "div",
-              { className: styles.imageOutput },
+              Paper,
+              { elevation: 3, className: styles.imageOutput },
               h(
                 "div",
                 { className: styles.canvasContainer },
