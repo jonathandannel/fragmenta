@@ -22,16 +22,13 @@ const Edit = ({ userImages }) => {
   const [modelsLoaded, setModelsLoaded] = useState(false);
   const [error, setError] = useState(false);
   const [useWebcam, setUseWebcam] = useState(false);
-
-  const [webcamScreenshot, setWebcamScreenshot] = useState(null);
+  const [webcamStarted, setWebcamStarted] = useState(false);
 
   const chosenImage = useRef();
   const canvasOverlay = useRef();
 
-  const webcamRef = useRef();
   const webcamCanvasRef = useRef();
-  const webcamOverlayRef = useRef();
-  const webcamScreenshotRef = useRef();
+  const videoRef = useRef();
 
   useEffect(() => {
     loadModels(setModelsLoaded);
@@ -81,24 +78,28 @@ const Edit = ({ userImages }) => {
     faceapi.draw.drawFaceLandmarks(canvasOverlay.current, resizedResults);
   };
 
-  const takeScreen = async () => {
-    const capture = await webcamRef.current.getScreenshot();
-    setWebcamScreenshot(capture);
-  };
+  // const handleVideo = stream => {
+  //   console.log(stream);
+  //   videoRef.current.srcObject = stream;
+  // };
+
+  useEffect(() => {
+    if (useWebcam) {
+      navigator.getUserMedia(
+        { video: true },
+        stream => (videoRef.current.srcObject = stream),
+        err => console.error(err)
+      );
+      setWebcamStarted(true);
+    }
+  }, [useWebcam]);
 
   const drawWebcamCanvas = async () => {
-    const niceImage = new Image(640, 480);
-    niceImage.crossOrigin = "anonymous";
-    niceImage.src = webcamScreenshotRef.current.src;
-
-    webcamCanvasRef.current.getContext("2d").drawImage(niceImage, 0, 0);
-
     const displaySize = { width: 640, height: 480 };
-
-    faceapi.matchDimensions(niceImage, displaySize);
+    faceapi.matchDimensions(videoRef.current, displaySize);
 
     const detectionsWithLandmarks = await faceapi
-      .detectSingleFace(niceImage)
+      .detectSingleFace(videoRef.current)
       .withFaceLandmarks();
 
     if (!detectionsWithLandmarks) {
@@ -111,18 +112,18 @@ const Edit = ({ userImages }) => {
       displaySize
     );
 
+    webcamCanvasRef.current.getContext("2d").clearRect(0, 0, 640, 480);
     faceapi.draw.drawDetections(webcamCanvasRef.current, resizedResults);
     faceapi.draw.drawFaceLandmarks(webcamCanvasRef.current, resizedResults);
   };
 
   useEffect(() => {
-    if (useWebcam) {
+    if (webcamStarted) {
       setInterval(() => {
-        takeScreen();
         drawWebcamCanvas();
-      }, 2000);
+      }, 300);
     }
-  }, [useWebcam]);
+  }, [webcamStarted]);
 
   return !modelsLoaded
     ? h(LoadingSpinner, { className: styles.spinner })
@@ -135,9 +136,7 @@ const Edit = ({ userImages }) => {
           "button",
           {
             onClick: () => {
-              takeScreen();
               drawWebcamCanvas();
-              setTimeout(() => {}, 100);
             }
           },
           "cap"
@@ -152,26 +151,15 @@ const Edit = ({ userImages }) => {
             h("canvas", {
               width: 640,
               height: 480,
-              ref: webcamCanvasRef
+              ref: webcamCanvasRef,
+              style: { position: "absolute" }
             }),
-            h(Webcam, {
-              ref: webcamRef,
-              audio: false,
+            h("video", {
+              ref: videoRef,
+              width: 640,
               height: 480,
-              screenshotFormat: "image/jpeg",
-              videoConstraints: {
-                width: 640,
-                height: 480,
-                facingMode: "user"
-              },
-              style: {
-                // display: "none"
-              }
-            }),
-            h("img", {
-              ref: webcamScreenshotRef,
-              src: webcamScreenshot,
-              style: { display: "none" }
+              autoPlay: true,
+              muted: true
             })
           ),
         selectedImagePath && !error
