@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { withRouter, Route, Switch } from "react-router-dom";
 
 import Header from "../Header";
-import AppMenu from "./MainMenu";
+import MainMenu from "./MainMenu";
 import Upload from "./Upload";
 
 import { setAllUserImages, addImage } from "../../actions/imageActions";
@@ -14,7 +14,7 @@ import { setAllUserImages, addImage } from "../../actions/imageActions";
 import { appStyles } from "../styles";
 
 const mapStateToProps = state => {
-  return { images: state.images.userImages };
+  return { userImages: state.images.userImages };
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -26,7 +26,7 @@ const Main = ({
   user,
   setUser,
   setJwt,
-  images,
+  userImages,
   setAllUserImages,
   addImage
 }) => {
@@ -40,10 +40,7 @@ const Main = ({
       }
     })
       .then(res => res.json())
-      .then(images => {
-        const v = images;
-
-        debugger;
+      .then(({ images, message, success }) => {
         setAllUserImages(images);
       });
   }, []);
@@ -56,7 +53,7 @@ const Main = ({
         h(
           "div",
           { className: styles.splitPane },
-          h(AppMenu),
+          h(MainMenu, { imageCount: userImages.length }),
           h(
             "div",
             { className: styles.main },
@@ -66,7 +63,7 @@ const Main = ({
               h(
                 Route,
                 { exact: true, path: "/app/upload" },
-                h(Upload, { images, addImage })
+                h(Upload, { userImages, addImage })
               ),
               h(
                 Route,

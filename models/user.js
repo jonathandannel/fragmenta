@@ -43,8 +43,6 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
-  User.associate = function(models) {
-    // User.hasMany(models.Image);
-  };
+  User.associate = function(models) {};
   return User;
 };

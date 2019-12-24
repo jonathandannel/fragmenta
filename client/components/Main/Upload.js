@@ -1,17 +1,25 @@
 import { createElement as h, useRef, useState } from "react";
-import { Typography, Input, Button, Fab } from "@material-ui/core";
+import {
+  Typography,
+  Input,
+  Button,
+  Fab,
+  Divider,
+  Card,
+  CardContent
+} from "@material-ui/core";
 
 import { Add } from "@material-ui/icons";
 
 import { appStyles } from "../styles";
 
-const Upload = ({ images, addImage }) => {
+const Upload = ({ userImages, addImage }) => {
   const styles = appStyles();
   const inputRef = useRef();
 
   const [uploadStatus, setUploadStatus] = useState(null);
 
-  const f = images;
+  const f = userImages;
   debugger;
 
   const handleFile = image => {
@@ -34,14 +42,11 @@ const Upload = ({ images, addImage }) => {
     "div",
     {
       style: {
-        width: "75%",
+        width: "90%",
         display: "flex",
-        flexDirection: "column",
-        justifyContent: "center"
+        flexDirection: "column"
       }
     },
-    uploadStatus && h(Typography, { variant: "caption" }, uploadStatus),
-    h(Typography, { variant: "caption" }, images.length),
     h(
       "form",
       {},
@@ -60,6 +65,28 @@ const Upload = ({ images, addImage }) => {
         },
         h(Add),
         "Upload"
+      )
+    ),
+    h(Divider),
+    h(
+      "div",
+      {
+        style: {
+          display: "flex",
+          justifyContent: "space-between",
+          flexWrap: "wrap"
+        }
+      },
+      userImages.map(({ path }) =>
+        h(
+          Card,
+          { style: { width: 200, height: 200 } },
+          h(
+            CardContent,
+            {},
+            h("img", { style: { transform: "scale(0.8)" }, src: path })
+          )
+        )
       )
     )
   );

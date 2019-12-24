@@ -31,8 +31,6 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
-  Image.associate = function(models) {
-    // Image.belongsTo(models.User);
-  };
+  Image.associate = function(models) {};
   return Image;
 };
