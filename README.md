@@ -1,5 +1,7 @@
 ## npm i
 
+- Installs dependencies.
+
 ## mysql
 
 - Create a mysql database
@@ -8,16 +10,16 @@
 
 ## cloudinary
 
-- Make sure you add keys to `.env`
+- Make sure you add your personal keys to the `.env`.
 
 ## npm start
 
-- Start the express server
+- Start the express server.
 
 ## npm run dev (in another terminal)
 
-- Webpack will watch the src/ directory and rebuild the client side bundle when code changes
+- Webpack will watch the src/ directory and rebuild the client side bundle when code changes.
 
 ## npm run build
 
-- Bundle is built the same as `run dev`
+- Bundle is built the same as `run dev`. If not running dev in watch mode, build before you run the express server.
