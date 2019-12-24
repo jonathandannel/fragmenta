@@ -25,8 +25,14 @@ export const uploadStyles = makeStyles(() => ({
     color: "white",
     marginLeft: "1rem"
   },
+  addIcon: {
+    marginRight: "0.25rem"
+  },
   form: {
     marginLeft: "2rem"
+  },
+  divider: {
+    margin: "1rem 0rem 1rem 0rem"
   }
 }));
 
@@ -35,12 +41,11 @@ export const editStyles = makeStyles(() => ({
     width: "90%",
     display: "flex",
     flexDirection: "column",
-    paddingTop: "2rem",
-    paddingRight: "2rem"
+    paddingLeft: "2rem"
   },
-  uploadGallery: {
+  webcamContainer: {
     display: "flex",
-    flexDirection: "column"
+    justifyContent: "center"
   },
   imageOutput: {
     marginTop: "1rem",
@@ -53,11 +58,22 @@ export const editStyles = makeStyles(() => ({
   spinner: {
     transform: "translateY(5rem)"
   },
+  fab: {
+    marginRight: "2.5rem"
+  },
+  fabIcon: {
+    marginRight: "0.75rem"
+  },
+  photoActions: {
+    display: "flex"
+  },
   choices: {
     width: "50%",
-    alignSelf: "center",
-    display: "flex",
-    justifyContent: "space-evenly"
+    alignSelf: "flex-start",
+    display: "flex"
+  },
+  divider: {
+    margin: "2rem 0rem 3rem 0rem"
   }
 }));
 

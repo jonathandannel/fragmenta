@@ -54,11 +54,11 @@ const Upload = ({ userImages, addImage }) => {
           color: "secondary",
           onClick: () => inputRef.current.click()
         },
-        h(Add),
+        h(Add, { className: styles.addIcon }),
         "Upload"
       )
     ),
-    h(Divider, { style: { margin: "1rem 0rem 1rem 0rem" } }),
+    h(Divider, { className: styles.divider }),
     h(
       "div",
       {

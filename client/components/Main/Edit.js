@@ -5,8 +5,10 @@ import {
   Fab,
   Dialog,
   DialogContent,
-  Typography
+  Typography,
+  Divider
 } from "@material-ui/core";
+import { SaveAlt, CameraAlt, CloudUpload } from "@material-ui/icons";
 
 import { loadModels } from "../../facialDetection";
 import LoadingSpinner from "../LoadingSpinner";
@@ -121,10 +123,73 @@ const Edit = ({ userImages }) => {
         {
           className: styles.mainContainer
         },
+        choosing &&
+          h(
+            "div",
+            {
+              className: styles.choices
+            },
+            h(
+              Fab,
+              {
+                color: "secondary",
+                variant: "extended",
+                className: styles.fab,
+                onClick: () => setEditFromSelection("gallery")
+              },
+              h(CloudUpload, { className: styles.fabIcon }),
+              "Choose from uploads"
+            ),
+            h(
+              Fab,
+              {
+                color: "secondary",
+                variant: "extended",
+                className: styles.fab,
+                onClick: () => {
+                  setUseWebcam(true);
+                  setChoosing(false);
+                }
+              },
+              h(CameraAlt, { className: styles.fabIcon }),
+              "Use webcam"
+            )
+          ),
+        h(
+          "div",
+          { className: styles.photoActions },
+          useWebcam &&
+            !choosing &&
+            h(
+              Fab,
+              {
+                variant: "extended",
+                color: "secondary",
+                className: styles.fab,
+                onClick: () => null
+              },
+              h(CameraAlt, { className: styles.fabIcon }),
+              "Take photo"
+            ),
+          selectedImagePath &&
+            !choosing &&
+            h(
+              Fab,
+              {
+                variant: "extended",
+                color: "secondary",
+                className: styles.fab,
+                onClick: () => null
+              },
+              h(SaveAlt, { className: styles.fabIcon }),
+              "Save"
+            )
+        ),
+        h(Divider, { className: styles.divider }),
         useWebcam &&
           h(
             "div",
-            null,
+            { className: styles.webcamContainer },
             h("canvas", {
               width: 640,
               height: 480,
@@ -163,40 +228,14 @@ const Edit = ({ userImages }) => {
                 { variant: "subtitle1", style: { alignSelf: "center" } },
                 "Unable to find facial features in selected image."
               ),
-        choosing &&
-          h(
-            "div",
-            {
-              className: styles.choices
-            },
-            h(
-              Fab,
-              {
-                color: "secondary",
-                variant: "extended",
-                onClick: () => setEditFromSelection("gallery")
-              },
-              "Choose from uploads"
-            ),
-            h(
-              Fab,
-              {
-                color: "secondary",
-                variant: "extended",
-                onClick: () => {
-                  setUseWebcam(true);
-                  setChoosing(false);
-                }
-              },
-              "Use webcam"
-            )
-          ),
         editFromSelection === "gallery"
           ? h(
               Dialog,
               {
                 open: editFromSelection === "gallery",
-                onClose: () => setEditFromSelection(null)
+                onClose: () => setEditFromSelection(null),
+                maxWidth: "md",
+                fullWidth: true
               },
               h(
                 DialogContent,
