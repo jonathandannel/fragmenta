@@ -5,7 +5,8 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Paper
+  Paper,
+  Badge
 } from "@material-ui/core";
 
 import { CloudUpload, CropRotate, Send, Collections } from "@material-ui/icons";
@@ -31,6 +32,7 @@ const MainMenu = ({ history, imageCount }) => {
         ListItem,
         {
           button: true,
+          key: "menu-upload",
           selected: selectedIndex === 0,
           onClick: () => {
             setSelectedIndex(0);
@@ -38,12 +40,13 @@ const MainMenu = ({ history, imageCount }) => {
           }
         },
         h(ListItemIcon, {}, h(CloudUpload)),
-        h(ListItemText, {}, `Uploads    (${imageCount})`)
+        h(ListItemText, {}, `Uploads (${imageCount})`)
       ),
       h(
         ListItem,
         {
           button: true,
+          key: "menu-edit",
           selected: selectedIndex === 1,
           onClick: () => {
             setSelectedIndex(1);
@@ -57,6 +60,7 @@ const MainMenu = ({ history, imageCount }) => {
         ListItem,
         {
           button: true,
+          key: "menu-collection",
           selected: selectedIndex === 2,
           onClick: () => {
             setSelectedIndex(2);
@@ -70,6 +74,7 @@ const MainMenu = ({ history, imageCount }) => {
         ListItem,
         {
           button: true,
+          key: "menu-export",
           selected: selectedIndex === 3,
           onClick: () => {
             setSelectedIndex(3);

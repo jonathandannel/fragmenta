@@ -68,7 +68,7 @@ export const editStyles = makeStyles(() => ({
     display: "flex"
   },
   choices: {
-    width: "50%",
+    width: "100%",
     alignSelf: "flex-start",
     display: "flex"
   },
