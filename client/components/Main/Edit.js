@@ -77,8 +77,8 @@ const Edit = ({ userImages }) => {
 
     const detectionsWithLandmarks = await faceapi
       .detectSingleFace(niceImage)
-      .withFaceLandmarks()
-      .withFaceExpressions();
+      .withFaceLandmarks();
+    // .withFaceExpressions();
 
     if (!detectionsWithLandmarks) {
       setError(true);
@@ -93,7 +93,7 @@ const Edit = ({ userImages }) => {
     canvasOverlay.current.getContext("2d").drawImage(niceImage, 0, 0);
     faceapi.draw.drawDetections(canvasOverlay.current, resizedResults);
     faceapi.draw.drawFaceLandmarks(canvasOverlay.current, resizedResults);
-    faceapi.draw.drawFaceExpressions(canvasOverlay.current, resizedResults);
+    // faceapi.draw.drawFaceExpressions(canvasOverlay.current, resizedResults);
   };
 
   const drawWebcamCanvas = async () => {
@@ -102,8 +102,8 @@ const Edit = ({ userImages }) => {
 
     const detectionsWithLandmarks = await faceapi
       .detectSingleFace(videoRef.current)
-      .withFaceLandmarks()
-      .withFaceExpressions();
+      .withFaceLandmarks();
+    // .withFaceExpressions();
 
     if (!detectionsWithLandmarks) {
       setError(true);
@@ -118,7 +118,7 @@ const Edit = ({ userImages }) => {
     webcamCanvasRef.current.getContext("2d").clearRect(0, 0, 720, 576);
     faceapi.draw.drawDetections(webcamCanvasRef.current, resizedResults);
     faceapi.draw.drawFaceLandmarks(webcamCanvasRef.current, resizedResults);
-    faceapi.draw.drawFaceExpressions(webcamCanvasRef.current, resizedResults);
+    // faceapi.draw.drawFaceExpressions(webcamCanvasRef.current, resizedResults);
   };
 
   return !modelsLoaded
