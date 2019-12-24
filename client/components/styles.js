@@ -1,5 +1,34 @@
 import { makeStyles } from "@material-ui/core";
 
+export const uploadStyles = makeStyles(() => ({
+  mainContainer: {
+    width: "90%",
+    display: "flex",
+    flexDirection: "column"
+  },
+  uploadGallery: {
+    display: "flex",
+    justifyContent: "space-between",
+    flexWrap: "wrap"
+  },
+  imageThumbnail: {
+    height: 200,
+    width: 200,
+    transform: "scale(0.8)"
+  },
+  checkIcon: {
+    color: "lightgreen",
+    marginRight: "0.5rem",
+    transform: "scale(0.9)"
+  },
+  confirmUploadContent: {
+    display: "flex",
+    justifyContent: "space-evenly",
+    color: "white",
+    marginLeft: "1rem"
+  }
+}));
+
 export const loginFormStyles = makeStyles(() => ({
   formContainer: {
     display: "flex",

@@ -1,26 +1,34 @@
-import { createElement as h, useRef, useState } from "react";
+import { createElement as h, useRef, useState, useEffect } from "react";
 import {
-  Typography,
-  Input,
   Button,
   Fab,
   Divider,
-  Card,
-  CardContent
+  Dialog,
+  DialogContent,
+  Snackbar
 } from "@material-ui/core";
 
-import { Add } from "@material-ui/icons";
+import { Add, Check } from "@material-ui/icons";
 
-import { appStyles } from "../styles";
+import { uploadStyles } from "../styles";
 
 const Upload = ({ userImages, addImage }) => {
-  const styles = appStyles();
+  const styles = uploadStyles();
   const inputRef = useRef();
 
+  const [selectedImagePath, setSelectedImagePath] = useState(null);
   const [uploadStatus, setUploadStatus] = useState(null);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
-  const f = userImages;
-  debugger;
+  useEffect(() => {
+    if (uploadStatus) {
+      setSnackbarOpen(true);
+      setTimeout(() => {
+        setSnackbarOpen(false);
+        setUploadStatus(null);
+      }, 4000);
+    }
+  }, [uploadStatus]);
 
   const handleFile = image => {
     const formData = new FormData();
@@ -41,11 +49,7 @@ const Upload = ({ userImages, addImage }) => {
   return h(
     "div",
     {
-      style: {
-        width: "90%",
-        display: "flex",
-        flexDirection: "column"
-      }
+      className: styles.mainContainer
     },
     h(
       "form",
@@ -67,28 +71,51 @@ const Upload = ({ userImages, addImage }) => {
         "Upload"
       )
     ),
-    h(Divider),
+    h(Divider, { style: { marginBottom: "1rem" } }),
     h(
       "div",
       {
-        style: {
-          display: "flex",
-          justifyContent: "space-between",
-          flexWrap: "wrap"
-        }
+        className: styles.uploadGallery
       },
       userImages.map(({ path }) =>
         h(
-          Card,
-          { style: { width: 200, height: 200 } },
-          h(
-            CardContent,
-            {},
-            h("img", { style: { transform: "scale(0.8)" }, src: path })
-          )
+          Button,
+          { onClick: () => setSelectedImagePath(path) },
+          h("img", {
+            className: styles.imageThumbnail,
+            src: path
+          })
         )
       )
-    )
+    ),
+    selectedImagePath &&
+      h(
+        Dialog,
+        {
+          open: selectedImagePath !== null,
+          onClose: () => setSelectedImagePath(null)
+        },
+        h(DialogContent, {}, h("img", { src: selectedImagePath }))
+      ),
+    h(Snackbar, {
+      style: { display: "flex", justifyContent: "center" },
+      open: snackbarOpen,
+      anchorOrigin: {
+        vertical: "top",
+        horizontal: "center"
+      },
+      message: h(
+        "div",
+        { className: styles.confirmUploadContent },
+        h(Check, { className: styles.checkIcon }),
+        h(
+          "span",
+          { style: { paddingTop: "0.1rem" } },
+          "Image successfully uploaded!"
+        )
+      ),
+      onClose: () => setSnackbarOpen(false)
+    })
   );
 };
 
