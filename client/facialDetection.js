@@ -1,10 +1,10 @@
 import * as faceapi from "face-api.js";
 
 export const loadModels = async loadedCb => {
-  await faceapi.loadTinyFaceDetectorModel("/weights");
-  await faceapi.loadFaceLandmarkTinyModel("/weights");
-  await faceapi.loadFaceRecognitionModel("/weights");
-  await faceapi.nets.faceLandmark68Net.loadFromUri("/weights");
-  await faceapi.nets.ssdMobilenetv1.loadFromUri("/weights");
+  await faceapi.loadTinyFaceDetectorModel("/models");
+  await faceapi.loadFaceLandmarkTinyModel("/models");
+  await faceapi.loadFaceRecognitionModel("/models");
+  await faceapi.nets.faceLandmark68Net.loadFromUri("/models");
+  await faceapi.nets.ssdMobilenetv1.loadFromUri("/models");
   loadedCb(true);
 };
