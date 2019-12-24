@@ -18,19 +18,9 @@ const Upload = ({ userImages, addImage }) => {
 
   const [selectedImagePath, setSelectedImagePath] = useState(null);
   const [uploadStatus, setUploadStatus] = useState(null);
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-
-  useEffect(() => {
-    if (uploadStatus) {
-      setSnackbarOpen(true);
-      setTimeout(() => {
-        setSnackbarOpen(false);
-        setUploadStatus(null);
-      }, 4000);
-    }
-  }, [uploadStatus]);
 
   const handleFile = image => {
+    setUploadStatus(null);
     const formData = new FormData();
     formData.append("image", image);
 
@@ -99,7 +89,9 @@ const Upload = ({ userImages, addImage }) => {
       ),
     h(Snackbar, {
       style: { display: "flex", justifyContent: "center" },
-      open: snackbarOpen,
+      open: uploadStatus,
+      autoHideDuration: 4000,
+      onClose: () => setUploadStatus(null),
       anchorOrigin: {
         vertical: "top",
         horizontal: "center"
@@ -113,8 +105,7 @@ const Upload = ({ userImages, addImage }) => {
           { style: { paddingTop: "0.1rem" } },
           "Image successfully uploaded!"
         )
-      ),
-      onClose: () => setSnackbarOpen(false)
+      )
     })
   );
 };
