@@ -1,5 +1,6 @@
 import { createElement as h, useRef, useState, useEffect } from "react";
 import * as faceapi from "face-api.js";
+import Webcam from "react-webcam";
 import {
   Button,
   Fab,
@@ -20,9 +21,17 @@ const Edit = ({ userImages }) => {
   const [choosing, setChoosing] = useState(true);
   const [modelsLoaded, setModelsLoaded] = useState(false);
   const [error, setError] = useState(false);
+  const [useWebcam, setUseWebcam] = useState(false);
+
+  const [webcamScreenshot, setWebcamScreenshot] = useState(null);
 
   const chosenImage = useRef();
   const canvasOverlay = useRef();
+
+  const webcamRef = useRef();
+  const webcamCanvasRef = useRef();
+  const webcamOverlayRef = useRef();
+  const webcamScreenshotRef = useRef();
 
   useEffect(() => {
     loadModels(setModelsLoaded);
@@ -34,7 +43,14 @@ const Edit = ({ userImages }) => {
     }
   }, [selectedImagePath]);
 
-  const detectAndDrawToCanvas = async () => {
+  useEffect(() => {
+    if (useWebcam) {
+      setTimeout(() => {
+        detectWebcam();
+      }, 4000);
+    }
+  }, [useWebcam]);
+  const detectAndDrawToCanvas = async (image, canvasRef) => {
     const niceImage = new Image(
       chosenImage.current.width,
       chosenImage.current.height
@@ -65,6 +81,40 @@ const Edit = ({ userImages }) => {
     faceapi.draw.drawFaceLandmarks(canvasOverlay.current, resizedResults);
   };
 
+  const takeScreen = async () => {
+    const capture = await webcamRef.current.getScreenshot();
+    setWebcamScreenshot(capture);
+  };
+
+  const drawWebcamCanvas = async () => {
+    const niceImage = new Image(640, 480);
+    niceImage.crossOrigin = "anonymous";
+    niceImage.src = webcamScreenshotRef.current.src;
+
+    webcamCanvasRef.current.getContext("2d").drawImage(niceImage, 0, 0);
+
+    const displaySize = { width: 640, height: 480 };
+
+    faceapi.matchDimensions(niceImage, displaySize);
+
+    const detectionsWithLandmarks = await faceapi
+      .detectSingleFace(niceImage)
+      .withFaceLandmarks();
+
+    if (!detectionsWithLandmarks) {
+      setError(true);
+      return;
+    }
+
+    const resizedResults = faceapi.resizeResults(
+      detectionsWithLandmarks,
+      displaySize
+    );
+
+    faceapi.draw.drawDetections(webcamCanvasRef.current, resizedResults);
+    faceapi.draw.drawFaceLandmarks(webcamCanvasRef.current, resizedResults);
+  };
+
   return !modelsLoaded
     ? h(LoadingSpinner, { className: styles.spinner })
     : h(
@@ -72,6 +122,47 @@ const Edit = ({ userImages }) => {
         {
           className: styles.mainContainer
         },
+        h(
+          "button",
+          {
+            onClick: () => {
+              takeScreen();
+              setTimeout(() => {
+                drawWebcamCanvas();
+              }, 600);
+            }
+          },
+          "cap"
+        ),
+        useWebcam &&
+          h(
+            "div",
+            {
+              // ref: webcamOverlayRef,
+              // style: { width: 640, height: 480, position: "relative" }
+            },
+            h("canvas", {
+              width: 640,
+              height: 480,
+              ref: webcamCanvasRef
+            }),
+            h(Webcam, {
+              ref: webcamRef,
+              audio: false,
+              height: 480,
+              screenshotFormat: "image/jpeg",
+              videoConstraints: {
+                width: 640,
+                height: 480,
+                facingMode: "user"
+              }
+            }),
+            h("img", {
+              ref: webcamScreenshotRef,
+              src: webcamScreenshot
+              // style: { display: "none" }
+            })
+          ),
         selectedImagePath && !error
           ? h(
               "div",
@@ -110,7 +201,22 @@ const Edit = ({ userImages }) => {
               },
               "Choose from uploads"
             ),
-            h(Fab, { color: "secondary", variant: "extended" }, "Use webcam")
+            h(
+              Fab,
+              {
+                color: "secondary",
+                variant: "extended",
+                onClick: () => {
+                  setUseWebcam(true);
+                  setChoosing(false);
+                  // navigator.mediaDevices.enumerateDevices().then(async devices => {
+                  //   const inputDevice = await devices.filter(
+                  //     device => device.kind === 'videoinput'
+                  //   );
+                }
+              },
+              "Use webcam"
+            )
           ),
         editFromSelection === "gallery"
           ? h(
