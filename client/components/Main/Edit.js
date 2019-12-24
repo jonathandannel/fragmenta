@@ -10,6 +10,8 @@ const Edit = ({ userImages }) => {
   const [editFromSelection, setEditFromSelection] = useState(null);
   const [choosing, setChoosing] = useState(true);
 
+  const chosenImage = useRef();
+
   return h(
     "div",
     {
@@ -18,8 +20,8 @@ const Edit = ({ userImages }) => {
     selectedImagePath &&
       h(
         "div",
-        { style: { alignSelf: "center " } },
-        h("img", { src: selectedImagePath })
+        { style: { marginTop: "1rem", alignSelf: "center " } },
+        h("img", { ref: chosenImage, src: selectedImagePath })
       ),
     choosing &&
       h(
