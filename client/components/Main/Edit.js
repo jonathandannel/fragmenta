@@ -3,14 +3,38 @@ import { Button, Fab, Divider, Dialog, DialogContent } from "@material-ui/core";
 
 import { uploadStyles } from "../styles";
 
+import * as faceapi from "face-api.js";
+
 const Edit = ({ userImages }) => {
   const styles = uploadStyles();
 
   const [selectedImagePath, setSelectedImagePath] = useState(null);
   const [editFromSelection, setEditFromSelection] = useState(null);
   const [choosing, setChoosing] = useState(true);
+  const [modelsLoaded, setModelsLoaded] = useState(false);
 
   const chosenImage = useRef();
+
+  useEffect(() => {
+    loadModels();
+  }, []);
+
+  const loadModels = async () => {
+    await faceapi.loadTinyFaceDetectorModel("/weights");
+    await faceapi.loadFaceLandmarkTinyModel("/weights");
+    await faceapi.loadFaceRecognitionModel("/weights");
+    setModelsLoaded(true);
+    console.log("models loaded");
+  };
+
+  const detect = async image => {
+    const detectionsWithLandmarks = await faceapi
+      .detectAllFaces(image)
+      .withFaceLandmarks();
+
+    console.log(detectionsWithLandmarks);
+    debugger;
+  };
 
   return h(
     "div",
@@ -21,6 +45,13 @@ const Edit = ({ userImages }) => {
       h(
         "div",
         { style: { marginTop: "1rem", alignSelf: "center " } },
+        h(Button, {
+          color: "primary",
+          onClick: () => detect(chosenImage.current)
+        }),
+        h("br"),
+        h("br"),
+        h("br"),
         h("img", { ref: chosenImage, src: selectedImagePath })
       ),
     choosing &&
