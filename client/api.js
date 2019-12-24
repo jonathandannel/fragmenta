@@ -33,3 +33,31 @@ export const verifyToken = () =>
     .then(user => {
       return { user, token: localStorage.getItem("jwt") };
     });
+
+export const getImagesByUserid = ({ userid }) =>
+  fetch(`/api/images/${userid}`, {
+    method: "get",
+    headers: {
+      authorization: localStorage.getItem("jwt")
+    }
+  })
+    .then(res => res.json())
+    .then(({ images, message, success }) => ({
+      images,
+      message,
+      success
+    }));
+
+export const uploadImage = formData =>
+  fetch("api/images/upload", {
+    method: "post",
+    headers: { authorization: localStorage.getItem("jwt") },
+    body: formData
+  })
+    .then(res => res.json())
+    .then(({ success, message, path, image }) => ({
+      success,
+      message,
+      path,
+      image
+    }));

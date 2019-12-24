@@ -13,6 +13,7 @@ import Edit from "./Edit";
 import { setAllUserImages, addImage } from "../../actions/imageActions";
 
 import { appStyles } from "../styles";
+import { getImagesByUserid } from "../../api";
 
 const mapStateToProps = state => {
   return { userImages: state.images.userImages };
@@ -34,16 +35,11 @@ const Main = ({
   const styles = appStyles();
 
   useEffect(() => {
-    fetch(`/api/images/${user.userid}`, {
-      method: "get",
-      headers: {
-        authorization: localStorage.getItem("jwt")
-      }
-    })
-      .then(res => res.json())
-      .then(({ images, message, success }) => {
+    getImagesByUserid({ userid: user.userid }).then(({ images, success }) => {
+      if (success) {
         setAllUserImages(images);
-      });
+      }
+    });
   }, []);
 
   return user

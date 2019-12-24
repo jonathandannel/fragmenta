@@ -2,6 +2,7 @@ import { createElement as h, useRef, useState, useEffect } from "react";
 import * as faceapi from "face-api.js";
 import { Button, Fab, Dialog, DialogContent } from "@material-ui/core";
 
+import { loadModels } from "../../facialDetection";
 import LoadingSpinner from "../LoadingSpinner";
 import { editStyles } from "../styles";
 
@@ -17,7 +18,7 @@ const Edit = ({ userImages }) => {
   const canvasOverlay = useRef();
 
   useEffect(() => {
-    loadModels();
+    loadModels(setModelsLoaded);
   }, []);
 
   useEffect(() => {
@@ -25,15 +26,6 @@ const Edit = ({ userImages }) => {
       detectAndDrawToCanvas();
     }
   }, [selectedImagePath]);
-
-  const loadModels = async () => {
-    await faceapi.loadTinyFaceDetectorModel("/weights");
-    await faceapi.loadFaceLandmarkTinyModel("/weights");
-    await faceapi.loadFaceRecognitionModel("/weights");
-    await faceapi.nets.faceLandmark68Net.loadFromUri("/weights");
-    await faceapi.nets.ssdMobilenetv1.loadFromUri("/weights");
-    setModelsLoaded(true);
-  };
 
   const detectAndDrawToCanvas = async () => {
     const niceImage = new Image(

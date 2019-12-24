@@ -8,6 +8,8 @@ import {
   Snackbar
 } from "@material-ui/core";
 
+import { uploadImage } from "../../api";
+
 import { Add, Check } from "@material-ui/icons";
 
 import { uploadStyles } from "../styles";
@@ -23,17 +25,12 @@ const Upload = ({ userImages, addImage }) => {
     setUploadStatus(null);
     const formData = new FormData();
     formData.append("image", image);
-
-    fetch("api/images/upload", {
-      method: "post",
-      headers: { authorization: localStorage.getItem("jwt") },
-      body: formData
-    })
-      .then(res => res.json())
-      .then(({ success, message, path, image }) => {
+    uploadImage.then(({ success, message, path, image }) => {
+      if (success) {
         setUploadStatus(message);
         addImage(image);
-      });
+      }
+    });
   };
 
   return h(
