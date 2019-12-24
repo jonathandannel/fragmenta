@@ -115,6 +115,15 @@ const Edit = ({ userImages }) => {
     faceapi.draw.drawFaceLandmarks(webcamCanvasRef.current, resizedResults);
   };
 
+  useEffect(() => {
+    if (useWebcam) {
+      setInterval(() => {
+        takeScreen();
+        drawWebcamCanvas();
+      }, 2000);
+    }
+  }, [useWebcam]);
+
   return !modelsLoaded
     ? h(LoadingSpinner, { className: styles.spinner })
     : h(
@@ -127,9 +136,8 @@ const Edit = ({ userImages }) => {
           {
             onClick: () => {
               takeScreen();
-              setTimeout(() => {
-                drawWebcamCanvas();
-              }, 600);
+              drawWebcamCanvas();
+              setTimeout(() => {}, 100);
             }
           },
           "cap"
@@ -155,12 +163,15 @@ const Edit = ({ userImages }) => {
                 width: 640,
                 height: 480,
                 facingMode: "user"
+              },
+              style: {
+                // display: "none"
               }
             }),
             h("img", {
               ref: webcamScreenshotRef,
-              src: webcamScreenshot
-              // style: { display: "none" }
+              src: webcamScreenshot,
+              style: { display: "none" }
             })
           ),
         selectedImagePath && !error
