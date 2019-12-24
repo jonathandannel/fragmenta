@@ -8,6 +8,7 @@ import { withRouter, Route, Switch } from "react-router-dom";
 import Header from "../Header";
 import MainMenu from "./MainMenu";
 import Upload from "./Upload";
+import Edit from "./Edit";
 
 import { setAllUserImages, addImage } from "../../actions/imageActions";
 
@@ -68,7 +69,7 @@ const Main = ({
               h(
                 Route,
                 { exact: true, path: "/app/edit" },
-                h(Typography, { variant: "h2" }, "Edit")
+                h(Edit, { userImages })
               ),
               h(
                 Route,
