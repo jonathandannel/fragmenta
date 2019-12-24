@@ -1,6 +1,5 @@
 import { createElement as h, useRef, useState, useEffect } from "react";
 import * as faceapi from "face-api.js";
-import Webcam from "react-webcam";
 import {
   Button,
   Fab,
@@ -42,12 +41,26 @@ const Edit = ({ userImages }) => {
 
   useEffect(() => {
     if (useWebcam) {
-      setTimeout(() => {
-        detectWebcam();
-      }, 4000);
+      navigator.getUserMedia(
+        { video: true },
+        stream => (videoRef.current.srcObject = stream),
+        err => console.error(err)
+      );
+      setWebcamStarted(true);
     }
   }, [useWebcam]);
-  const detectAndDrawToCanvas = async (image, canvasRef) => {
+
+  useEffect(() => {
+    let interval;
+    if (webcamStarted && modelsLoaded) {
+      interval = setInterval(() => {
+        drawWebcamCanvas();
+      }, 100);
+    }
+    return () => clearInterval(interval);
+  }, [webcamStarted, modelsLoaded]);
+
+  const detectAndDrawToCanvas = async () => {
     const niceImage = new Image(
       chosenImage.current.width,
       chosenImage.current.height
@@ -78,22 +91,6 @@ const Edit = ({ userImages }) => {
     faceapi.draw.drawFaceLandmarks(canvasOverlay.current, resizedResults);
   };
 
-  // const handleVideo = stream => {
-  //   console.log(stream);
-  //   videoRef.current.srcObject = stream;
-  // };
-
-  useEffect(() => {
-    if (useWebcam) {
-      navigator.getUserMedia(
-        { video: true },
-        stream => (videoRef.current.srcObject = stream),
-        err => console.error(err)
-      );
-      setWebcamStarted(true);
-    }
-  }, [useWebcam]);
-
   const drawWebcamCanvas = async () => {
     const displaySize = { width: 640, height: 480 };
     faceapi.matchDimensions(videoRef.current, displaySize);
@@ -117,14 +114,6 @@ const Edit = ({ userImages }) => {
     faceapi.draw.drawFaceLandmarks(webcamCanvasRef.current, resizedResults);
   };
 
-  useEffect(() => {
-    if (webcamStarted) {
-      setInterval(() => {
-        drawWebcamCanvas();
-      }, 300);
-    }
-  }, [webcamStarted]);
-
   return !modelsLoaded
     ? h(LoadingSpinner, { className: styles.spinner })
     : h(
@@ -132,22 +121,10 @@ const Edit = ({ userImages }) => {
         {
           className: styles.mainContainer
         },
-        h(
-          "button",
-          {
-            onClick: () => {
-              drawWebcamCanvas();
-            }
-          },
-          "cap"
-        ),
         useWebcam &&
           h(
             "div",
-            {
-              // ref: webcamOverlayRef,
-              // style: { width: 640, height: 480, position: "relative" }
-            },
+            null,
             h("canvas", {
               width: 640,
               height: 480,
@@ -180,6 +157,7 @@ const Edit = ({ userImages }) => {
               )
             )
           : !choosing &&
+              !useWebcam &&
               h(
                 Typography,
                 { variant: "subtitle1", style: { alignSelf: "center" } },
@@ -208,10 +186,6 @@ const Edit = ({ userImages }) => {
                 onClick: () => {
                   setUseWebcam(true);
                   setChoosing(false);
-                  // navigator.mediaDevices.enumerateDevices().then(async devices => {
-                  //   const inputDevice = await devices.filter(
-                  //     device => device.kind === 'videoinput'
-                  //   );
                 }
               },
               "Use webcam"
