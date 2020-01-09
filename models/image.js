@@ -10,23 +10,35 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true
       },
       path: DataTypes.STRING,
-      userid: DataTypes.UUID
+      userid: DataTypes.UUID,
+      final: DataTypes.BOOLEAN
     },
     {}
   );
 
-  Image.createNew = ({ url, userid }) => {
+  Image.createNew = ({ url, userid, final }) => {
     return Image.create({
       imageid: uuid(),
       path: url,
-      userid
+      userid,
+      final
     });
   };
 
-  Image.getAllByUserId = ({ userid }) => {
+  Image.getAllUploadsByUserId = ({ userid }) => {
     return Image.findAll({
       where: {
-        userid
+        userid,
+        final: 0
+      }
+    });
+  };
+
+  Image.getAllFinalPhotosByUserId = ({ userid }) => {
+    return Image.findAll({
+      where: {
+        userid,
+        final: 1
       }
     });
   };

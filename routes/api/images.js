@@ -26,7 +26,24 @@ router.use(checkToken);
 
 router.get("/:userid", (req, res) => {
   const { userid } = req.params;
-  Image.getAllByUserId({ userid }).then(images => {
+  Image.getAllUploadsByUserId({ userid }).then(images => {
+    if (!images) {
+      res.status(500).json({
+        success: false,
+        message: "Images not fetched"
+      });
+    }
+    res.status(200).json({
+      images,
+      message: "Images fetched successfully",
+      success: true
+    });
+  });
+});
+
+router.get("/:userid/final", (req, res) => {
+  const { userid } = req.params;
+  Image.getAllFinalPhotosByUserId({ userid }).then(images => {
     if (!images) {
       res.status(500).json({
         success: false,
@@ -43,16 +60,19 @@ router.get("/:userid", (req, res) => {
 
 router.post("/upload", parser.single("image"), (req, res) => {
   if (req) {
-    Image.createNew({ url: req.file.url, userid: req.decoded.userid }).then(
-      image => {
-        return res.json({
-          success: true,
-          message: "Image uploaded successfully",
-          path: req.file.url,
-          image
-        });
-      }
-    );
+    console.log(req);
+    Image.createNew({
+      url: req.file.url,
+      userid: req.decoded.userid,
+      final: req.body.final
+    }).then(image => {
+      return res.json({
+        success: true,
+        message: "Image uploaded successfully",
+        path: req.file.url,
+        image
+      });
+    });
   } else {
     return res.status(500).json({
       success: false,

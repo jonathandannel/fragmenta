@@ -134,6 +134,7 @@ const Edit = ({ userImages, addImage }) => {
       const newImage = new File([blob], `${Date.now()}`);
       const formData = new FormData();
       formData.append("image", newImage);
+      formData.append("final", true);
       uploadImage(formData).then(({ image }) => addImage(image));
     });
   };

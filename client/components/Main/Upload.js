@@ -25,6 +25,7 @@ const Upload = ({ userImages, addImage }) => {
     setUploadStatus(null);
     const formData = new FormData();
     formData.append("image", image);
+    formData.append("final", false);
     uploadImage(formData).then(({ success, message, path, image }) => {
       if (success) {
         setUploadStatus(message);
