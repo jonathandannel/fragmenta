@@ -1,5 +1,8 @@
 import { createElement as h, useRef, useState, useEffect } from "react";
 import * as faceapi from "face-api.js";
+
+import { connect } from "react-redux";
+
 import {
   Button,
   Fab,
@@ -14,8 +17,9 @@ import { SaveAlt, CameraAlt, CloudUpload } from "@material-ui/icons";
 import { loadModels } from "../../facialDetection";
 import LoadingSpinner from "../LoadingSpinner";
 import { editStyles } from "../styles";
+import { uploadImage } from "../../api";
 
-const Edit = ({ userImages }) => {
+const Edit = ({ userImages, addImage }) => {
   const styles = editStyles();
 
   const [selectedImagePath, setSelectedImagePath] = useState(null);
@@ -26,6 +30,7 @@ const Edit = ({ userImages }) => {
   const [useWebcam, setUseWebcam] = useState(false);
   const [webcamStarted, setWebcamStarted] = useState(false);
   const [currentSnapshot, setCurrentSnapshot] = useState(null);
+  const [stream, setStream] = useState(null);
 
   const chosenImage = useRef();
   const canvasOverlay = useRef();
@@ -47,7 +52,10 @@ const Edit = ({ userImages }) => {
     if (useWebcam) {
       navigator.getUserMedia(
         { video: true },
-        stream => (videoRef.current.srcObject = stream),
+        stream => {
+          videoRef.current.srcObject = stream;
+          setStream(stream);
+        },
         err => console.error(err)
       );
       setWebcamStarted(true);
@@ -119,8 +127,15 @@ const Edit = ({ userImages }) => {
   };
 
   const takeWebcamPhoto = () => {
-    const a = videoRef;
-    debugger;
+    const [screen] = stream.getVideoTracks();
+    const capture = new ImageCapture(screen);
+
+    capture.takePhoto().then(blob => {
+      const newImage = new File([blob], `${Date.now()}`);
+      const formData = new FormData();
+      formData.append("image", newImage);
+      uploadImage(formData).then(({ image }) => addImage(image));
+    });
   };
 
   return !modelsLoaded

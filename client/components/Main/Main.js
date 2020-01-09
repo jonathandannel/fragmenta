@@ -65,7 +65,7 @@ const Main = ({
               h(
                 Route,
                 { exact: true, path: "/app/edit" },
-                h(Edit, { userImages })
+                h(Edit, { userImages, addImage })
               ),
               h(
                 Route,

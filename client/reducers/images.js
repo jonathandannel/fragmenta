@@ -17,7 +17,7 @@ const images = (state = initialState, action) => {
       const { userImages } = state;
       return {
         ...state,
-        userImages: [...userImages, image]
+        userImages: userImages.concat(image)
       };
     default:
       return { ...state };
