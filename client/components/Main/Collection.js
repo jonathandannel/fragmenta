@@ -8,13 +8,10 @@ import {
   Snackbar
 } from "@material-ui/core";
 
-import { Add, Check } from "@material-ui/icons";
-
 import { uploadStyles } from "../styles";
 
-const Collection = ({ userUploads, addImage }) => {
+const Collection = ({ finishedPhotos }) => {
   const styles = uploadStyles();
-  const inputRef = useRef();
 
   const [selectedImagePath, setSelectedImagePath] = useState(null);
   const [uploadStatus, setUploadStatus] = useState(null);
@@ -30,7 +27,7 @@ const Collection = ({ userUploads, addImage }) => {
       {
         className: styles.uploadGallery
       },
-      userUploads.map(({ path, imageid }) =>
+      finishedPhotos.map(({ path, imageid }) =>
         h(
           Button,
           { key: imageid, onClick: () => setSelectedImagePath(path) },

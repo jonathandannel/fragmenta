@@ -17,7 +17,9 @@ export const addFinishedPhoto = ({ singlePhoto }) => ({
   type: ADD_FINISHED_PHOTO,
   singlePhoto
 });
-export const setAllFinishedPhotos = ({ allPhotos }) => ({
-  type: SET_ALL_FINISHED_PHOTOS,
-  allPhotos
-});
+export const setAllFinishedPhotos = images => {
+  return {
+    type: SET_ALL_FINISHED_PHOTOS,
+    images
+  };
+};

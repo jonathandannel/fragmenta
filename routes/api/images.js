@@ -60,7 +60,6 @@ router.get("/:userid/finished", (req, res) => {
 
 router.post("/upload", parser.single("image"), (req, res) => {
   if (req) {
-    console.log(req);
     Image.createNew({
       url: req.file.url,
       userid: req.decoded.userid,

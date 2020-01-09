@@ -27,7 +27,6 @@ const images = (state = initialState, action) => {
         userUploads: userUploads.concat(singleUpload)
       };
     }
-
     case SET_ALL_FINISHED_PHOTOS: {
       const { allPhotos } = action;
       return {
@@ -43,9 +42,8 @@ const images = (state = initialState, action) => {
         finishedPhotos: finishedPhotos.concat(singlePhoto)
       };
     }
-    default: {
+    default:
       return { ...state };
-    }
   }
 };
 

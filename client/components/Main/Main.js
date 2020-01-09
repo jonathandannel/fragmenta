@@ -42,6 +42,7 @@ const Main = ({
   setJwt,
   userUploads,
   setAllUserUploads,
+  setAllFinishedPhotos,
   finishedPhotos,
   addUpload
 }) => {
@@ -89,12 +90,12 @@ const Main = ({
               h(
                 Route,
                 { exact: true, path: "/app/edit" },
-                h(Edit, { userUploads, addUpload })
+                h(Edit, { userUploads, addUpload, addFinishedPhoto })
               ),
               h(
                 Route,
                 { exact: true, path: "/app/collection" },
-                h(Collection, { userUploads, finishedPhotos })
+                h(Collection, { finishedPhotos })
               ),
               h(
                 Route,

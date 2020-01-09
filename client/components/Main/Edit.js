@@ -19,7 +19,7 @@ import LoadingSpinner from "../LoadingSpinner";
 import { editStyles } from "../styles";
 import { uploadImage } from "../../api";
 
-const Edit = ({ userUploads, addUpload }) => {
+const Edit = ({ userUploads, addFinishedPhoto }) => {
   const styles = editStyles();
 
   const [selectedImagePath, setSelectedImagePath] = useState(null);
@@ -29,7 +29,6 @@ const Edit = ({ userUploads, addUpload }) => {
   const [error, setError] = useState(false);
   const [useWebcam, setUseWebcam] = useState(false);
   const [webcamStarted, setWebcamStarted] = useState(false);
-  const [currentSnapshot, setCurrentSnapshot] = useState(null);
   const [stream, setStream] = useState(null);
 
   const chosenImage = useRef();
@@ -135,7 +134,7 @@ const Edit = ({ userUploads, addUpload }) => {
       const formData = new FormData();
       formData.append("image", newImage);
       formData.append("final", true);
-      uploadImage(formData).then(({ image }) => addUpload(image));
+      uploadImage(formData).then(image => addFinishedPhoto(image));
     });
   };
 
