@@ -12,7 +12,7 @@ import { Add, Check } from "@material-ui/icons";
 
 import { uploadStyles } from "../styles";
 
-const Collection = ({ userImages, addImage }) => {
+const Collection = ({ userUploads, addImage }) => {
   const styles = uploadStyles();
   const inputRef = useRef();
 
@@ -30,7 +30,7 @@ const Collection = ({ userImages, addImage }) => {
       {
         className: styles.uploadGallery
       },
-      userImages.map(({ path, imageid }) =>
+      userUploads.map(({ path, imageid }) =>
         h(
           Button,
           { key: imageid, onClick: () => setSelectedImagePath(path) },
@@ -73,4 +73,4 @@ const Collection = ({ userImages, addImage }) => {
   );
 };
 
-export default Upload;
+export default Collection;

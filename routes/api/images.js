@@ -41,7 +41,7 @@ router.get("/:userid", (req, res) => {
   });
 });
 
-router.get("/:userid/final", (req, res) => {
+router.get("/:userid/finished", (req, res) => {
   const { userid } = req.params;
   Image.getAllFinalPhotosByUserId({ userid }).then(images => {
     if (!images) {

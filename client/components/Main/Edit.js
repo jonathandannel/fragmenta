@@ -19,7 +19,7 @@ import LoadingSpinner from "../LoadingSpinner";
 import { editStyles } from "../styles";
 import { uploadImage } from "../../api";
 
-const Edit = ({ userImages, addImage }) => {
+const Edit = ({ userUploads, addUpload }) => {
   const styles = editStyles();
 
   const [selectedImagePath, setSelectedImagePath] = useState(null);
@@ -135,7 +135,7 @@ const Edit = ({ userImages, addImage }) => {
       const formData = new FormData();
       formData.append("image", newImage);
       formData.append("final", true);
-      uploadImage(formData).then(({ image }) => addImage(image));
+      uploadImage(formData).then(({ image }) => addUpload(image));
     });
   };
 
@@ -273,7 +273,7 @@ const Edit = ({ userImages, addImage }) => {
                   {
                     className: styles.uploadGallery
                   },
-                  userImages.map(({ path, imageid }) =>
+                  userUploads.map(({ path, imageid }) =>
                     h(
                       Button,
                       {

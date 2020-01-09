@@ -1,26 +1,51 @@
-import { ADD_IMAGE, SET_ALL_USER_IMAGES } from "../constants/ActionTypes";
+import {
+  ADD_USER_UPLOAD,
+  SET_ALL_USER_UPLOADS,
+  ADD_FINISHED_PHOTO,
+  SET_ALL_FINISHED_PHOTOS
+} from "../constants/ActionTypes";
 
 const initialState = {
-  userImages: []
+  userUploads: [],
+  finishedPhotos: []
 };
 
 const images = (state = initialState, action) => {
   switch (action.type) {
-    case SET_ALL_USER_IMAGES:
-      const { images } = action;
+    case SET_ALL_USER_UPLOADS: {
+      const { allUploads } = action;
       return {
         ...state,
-        userImages: images
+        userUploads: allUploads
       };
-    case ADD_IMAGE:
-      const { image } = action;
-      const { userImages } = state;
+    }
+    case ADD_USER_UPLOAD: {
+      const { singleUpload } = action;
+      const { userUploads } = state;
       return {
         ...state,
-        userImages: userImages.concat(image)
+        userUploads: userUploads.concat(singleUpload)
       };
-    default:
+    }
+
+    case SET_ALL_FINISHED_PHOTOS: {
+      const { allPhotos } = action;
+      return {
+        ...state,
+        finishedPhotos: allPhotos
+      };
+    }
+    case ADD_FINISHED_PHOTO: {
+      const { singlePhoto } = action;
+      const { finishedPhotos } = state;
+      return {
+        ...state,
+        finishedPhotos: finishedPhotos.concat(singlePhoto)
+      };
+    }
+    default: {
       return { ...state };
+    }
   }
 };
 

@@ -12,7 +12,7 @@ import {
 import { CloudUpload, CropRotate, Send, Collections } from "@material-ui/icons";
 import { appMenuStyles } from "../styles";
 
-const MainMenu = ({ history, imageCount }) => {
+const MainMenu = ({ history, uploadCount, collectionCount }) => {
   const styles = appMenuStyles();
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -40,7 +40,7 @@ const MainMenu = ({ history, imageCount }) => {
           }
         },
         h(ListItemIcon, {}, h(CloudUpload)),
-        h(ListItemText, {}, `Uploads (${imageCount})`)
+        h(ListItemText, {}, `Uploads (${uploadCount})`)
       ),
       h(
         ListItem,
@@ -68,7 +68,7 @@ const MainMenu = ({ history, imageCount }) => {
           }
         },
         h(ListItemIcon, {}, h(Collections)),
-        h(ListItemText, {}, "Collection")
+        h(ListItemText, {}, `Collection (${collectionCount})`)
       ),
       h(
         ListItem,

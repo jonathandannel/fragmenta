@@ -34,8 +34,22 @@ export const verifyToken = () =>
       return { user, token: localStorage.getItem("jwt") };
     });
 
-export const getImagesByUserid = ({ userid }) =>
+export const getUploadsByUserid = ({ userid }) =>
   fetch(`/api/images/${userid}`, {
+    method: "get",
+    headers: {
+      authorization: localStorage.getItem("jwt")
+    }
+  })
+    .then(res => res.json())
+    .then(({ images, message, success }) => ({
+      images,
+      message,
+      success
+    }));
+
+export const getFinishedPhotosByUserid = ({ userid }) =>
+  fetch(`/api/images/${userid}/finished`, {
     method: "get",
     headers: {
       authorization: localStorage.getItem("jwt")

@@ -14,7 +14,7 @@ import { Add, Check } from "@material-ui/icons";
 
 import { uploadStyles } from "../styles";
 
-const Upload = ({ userImages, addImage }) => {
+const Upload = ({ userUploads, addUpload }) => {
   const styles = uploadStyles();
   const inputRef = useRef();
 
@@ -29,7 +29,7 @@ const Upload = ({ userImages, addImage }) => {
     uploadImage(formData).then(({ success, message, path, image }) => {
       if (success) {
         setUploadStatus(message);
-        addImage(image);
+        addUpload(image);
       }
     });
   };
@@ -65,7 +65,7 @@ const Upload = ({ userImages, addImage }) => {
       {
         className: styles.uploadGallery
       },
-      userImages.map(({ path, imageid }) =>
+      userUploads.map(({ path, imageid }) =>
         h(
           Button,
           { key: imageid, onClick: () => setSelectedImagePath(path) },

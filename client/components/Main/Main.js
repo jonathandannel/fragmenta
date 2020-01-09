@@ -11,36 +11,56 @@ import Upload from "./Upload";
 import Edit from "./Edit";
 import Collection from "./Collection";
 
-import { setAllUserImages, addImage } from "../../actions/imageActions";
+import {
+  setAllUserUploads,
+  addUpload,
+  addFinishedPhoto,
+  setAllFinishedPhotos
+} from "../../actions/imageActions";
 
 import { appStyles } from "../styles";
-import { getImagesByUserid } from "../../api";
+import { getUploadsByUserid, getFinishedPhotosByUserid } from "../../api";
 
 const mapStateToProps = state => {
-  return { userImages: state.images.userImages };
+  return {
+    userUploads: state.images.userUploads,
+    finishedPhotos: state.images.finishedPhotos
+  };
 };
 
 const mapDispatchToProps = dispatch => ({
-  addImage: image => dispatch(addImage(image)),
-  setAllUserImages: images => dispatch(setAllUserImages(images))
+  addUpload: singleUpload => dispatch(addUpload({ singleUpload })),
+  setAllUserUploads: allUploads => dispatch(setAllUserUploads({ allUploads })),
+  addFinishedPhoto: singlePhoto => dispatch(addFinishedPhoto({ singlePhoto })),
+  setAllFinishedPhotos: allPhotos =>
+    dispatch(setAllFinishedPhotos({ allPhotos }))
 });
 
 const Main = ({
   user,
   setUser,
   setJwt,
-  userImages,
-  setAllUserImages,
-  addImage
+  userUploads,
+  setAllUserUploads,
+  finishedPhotos,
+  addUpload
 }) => {
   const styles = appStyles();
 
   useEffect(() => {
-    getImagesByUserid({ userid: user.userid }).then(({ images, success }) => {
+    getUploadsByUserid({ userid: user.userid }).then(({ images, success }) => {
       if (success) {
-        setAllUserImages(images);
+        setAllUserUploads(images);
       }
     });
+
+    getFinishedPhotosByUserid({ userid: user.userid }).then(
+      ({ images, success }) => {
+        if (success) {
+          setAllFinishedPhotos(images);
+        }
+      }
+    );
   }, []);
 
   return user
@@ -51,7 +71,10 @@ const Main = ({
         h(
           "div",
           { className: styles.splitPane },
-          h(MainMenu, { imageCount: userImages.length }),
+          h(MainMenu, {
+            uploadCount: userUploads.length,
+            collectionCount: finishedPhotos.length
+          }),
           h(
             "div",
             { className: styles.main },
@@ -61,17 +84,17 @@ const Main = ({
               h(
                 Route,
                 { exact: true, path: "/app/upload" },
-                h(Upload, { userImages, addImage })
+                h(Upload, { userUploads, addUpload })
               ),
               h(
                 Route,
                 { exact: true, path: "/app/edit" },
-                h(Edit, { userImages, addImage })
+                h(Edit, { userUploads, addUpload })
               ),
               h(
                 Route,
                 { exact: true, path: "/app/collection" },
-                h(Collection, { userImages })
+                h(Collection, { userUploads, finishedPhotos })
               ),
               h(
                 Route,
