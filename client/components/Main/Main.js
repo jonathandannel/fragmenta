@@ -9,6 +9,7 @@ import Header from "../Header";
 import MainMenu from "./MainMenu";
 import Upload from "./Upload";
 import Edit from "./Edit";
+import Collection from "./Collection";
 
 import { setAllUserImages, addImage } from "../../actions/imageActions";
 
@@ -70,7 +71,7 @@ const Main = ({
               h(
                 Route,
                 { exact: true, path: "/app/collection" },
-                h(Typography, { variant: "h2" }, "Collection")
+                h(Collection, { userImages })
               ),
               h(
                 Route,
