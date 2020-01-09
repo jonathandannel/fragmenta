@@ -62,7 +62,10 @@ const Splash = () => {
         maxWidth: "sm",
         fullWidth: true
       },
-      h(Login)
+      h(Login, {
+        closeLogin: () => setLoginDialog(false),
+        openRegister: () => setRegisterDialog(true)
+      })
     ),
     h(
       Dialog,
@@ -73,7 +76,10 @@ const Splash = () => {
         maxWidth: "sm",
         fullWidth: true
       },
-      h(Register)
+      h(Register, {
+        closeRegister: () => setRegisterDialog(false),
+        openLogin: () => setLoginDialog(true)
+      })
     )
   );
 };

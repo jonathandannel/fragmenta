@@ -4,7 +4,7 @@ import { loginFormStyles } from "../styles";
 import useRegisterForm from "../../hooks/useRegisterForm";
 import { register } from "../../api";
 
-const Register = () => {
+const Register = ({ closeRegister, openLogin }) => {
   const requestRegistration = fieldValues => {
     setSubmissionStatus(false);
     register(fieldValues).then(({ message, success }) =>
@@ -83,6 +83,31 @@ const Register = () => {
             className: styles.button
           },
           "Register"
+        )
+      ),
+      h(
+        "div",
+        { className: styles.alreadyHave },
+        h(
+          Typography,
+          { style: { paddingRight: "0.25rem" }, variant: "caption" },
+          `Already have an account?`
+        ),
+        h(
+          "a",
+          {
+            className: styles.alreadyHaveA,
+            href: "#",
+            onClick: () => {
+              closeRegister();
+              openLogin();
+            }
+          },
+          h(
+            Typography,
+            { variant: "caption", color: "secondary" },
+            "Log in with existing account."
+          )
         )
       )
     )

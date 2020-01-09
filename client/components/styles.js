@@ -102,7 +102,8 @@ export const loginFormStyles = makeStyles(() => ({
     width: "100%",
     fontWeight: "bold",
     marginTop: "1.25rem",
-    padding: "0.5rem"
+    padding: "0.5rem",
+    marginBottom: "2rem"
   }
 }));
 
@@ -135,7 +136,9 @@ export const splashStyles = makeStyles(() => ({
     display: "flex",
     marginTop: "2rem",
     flexDirection: "column"
-  }
+  },
+  alreadyHave: { textDecoration: "none" },
+  alreadyHaveA: { textDecoration: "none" }
 }));
 
 export const appStyles = makeStyles(() => ({

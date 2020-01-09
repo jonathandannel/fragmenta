@@ -14,7 +14,7 @@ const mapDispatchToProps = dispatch => ({
   setJwt: token => dispatch(setJwt(token))
 });
 
-const Login = ({ setUser, setJwt, history }) => {
+const Login = ({ setUser, setJwt, history, closeLogin, openRegister }) => {
   const requestLogin = fieldValues =>
     login(fieldValues).then(({ message, token, user, success }) => {
       setSubmissionStatus({
@@ -76,6 +76,31 @@ const Login = ({ setUser, setJwt, history }) => {
             className: styles.button
           },
           "Log in"
+        )
+      ),
+      h(
+        "div",
+        { className: styles.alreadyHave },
+        h(
+          Typography,
+          { style: { paddingRight: "0.25rem" }, variant: "caption" },
+          `Don't have an account yet?`
+        ),
+        h(
+          "a",
+          {
+            className: styles.alreadyHaveA,
+            href: "#",
+            onClick: () => {
+              closeLogin();
+              openRegister();
+            }
+          },
+          h(
+            Typography,
+            { variant: "caption", color: "secondary" },
+            "Register a new account."
+          )
         )
       )
     )
