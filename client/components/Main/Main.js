@@ -29,11 +29,11 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  addUpload: singleUpload => dispatch(addUpload({ singleUpload })),
-  setAllUserUploads: allUploads => dispatch(setAllUserUploads({ allUploads })),
-  addFinishedPhoto: singlePhoto => dispatch(addFinishedPhoto({ singlePhoto })),
-  setAllFinishedPhotos: allPhotos =>
-    dispatch(setAllFinishedPhotos({ allPhotos }))
+  addUpload: upload => dispatch(addUpload(upload)),
+  setAllUserUploads: allUploads => dispatch(setAllUserUploads(allUploads)),
+  addFinishedPhoto: photo => dispatch(addFinishedPhoto(photo)),
+  setAllFinishedPhotos: allFinishedPhotos =>
+    dispatch(setAllFinishedPhotos(allFinishedPhotos))
 });
 
 const Main = ({
@@ -58,6 +58,7 @@ const Main = ({
     getFinishedPhotosByUserid({ userid: user.userid }).then(
       ({ images, success }) => {
         if (success) {
+          debugger;
           setAllFinishedPhotos(images);
         }
       }
@@ -73,8 +74,8 @@ const Main = ({
           "div",
           { className: styles.splitPane },
           h(MainMenu, {
-            uploadCount: userUploads.length,
-            collectionCount: finishedPhotos.length
+            uploadCount: userUploads && userUploads.length,
+            collectionCount: finishedPhotos && finishedPhotos.length
           }),
           h(
             "div",

@@ -5,21 +5,19 @@ import {
   SET_ALL_FINISHED_PHOTOS
 } from "../constants/ActionTypes";
 
-export const addUpload = ({ singleUpload }) => ({
+export const addUpload = upload => ({
   type: ADD_USER_UPLOAD,
-  singleUpload
+  upload
 });
-export const setAllUserUploads = ({ allUploads }) => ({
+export const setAllUserUploads = allUploads => ({
   type: SET_ALL_USER_UPLOADS,
   allUploads
 });
-export const addFinishedPhoto = ({ singlePhoto }) => ({
+export const addFinishedPhoto = photo => ({
   type: ADD_FINISHED_PHOTO,
-  singlePhoto
+  photo
 });
-export const setAllFinishedPhotos = images => {
-  return {
-    type: SET_ALL_FINISHED_PHOTOS,
-    images
-  };
-};
+export const setAllFinishedPhotos = allFinishedPhotos => ({
+  type: SET_ALL_FINISHED_PHOTOS,
+  allFinishedPhotos
+});

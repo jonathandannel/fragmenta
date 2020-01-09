@@ -7,6 +7,7 @@ import {
   DialogContent,
   Snackbar
 } from "@material-ui/core";
+import { Check } from "@material-ui/icons";
 
 import { uploadStyles } from "../styles";
 
@@ -27,16 +28,17 @@ const Collection = ({ finishedPhotos }) => {
       {
         className: styles.uploadGallery
       },
-      finishedPhotos.map(({ path, imageid }) =>
-        h(
-          Button,
-          { key: imageid, onClick: () => setSelectedImagePath(path) },
-          h("img", {
-            className: styles.imageThumbnail,
-            src: path
-          })
+      finishedPhotos &&
+        finishedPhotos.map(({ path, imageid }) =>
+          h(
+            Button,
+            { key: imageid, onClick: () => setSelectedImagePath(path) },
+            h("img", {
+              className: styles.imageThumbnail,
+              src: path
+            })
+          )
         )
-      )
     ),
     selectedImagePath &&
       h(

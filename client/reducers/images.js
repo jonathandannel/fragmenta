@@ -20,26 +20,27 @@ const images = (state = initialState, action) => {
       };
     }
     case ADD_USER_UPLOAD: {
-      const { singleUpload } = action;
+      const { upload } = action;
       const { userUploads } = state;
       return {
         ...state,
-        userUploads: userUploads.concat(singleUpload)
+        userUploads: userUploads.concat(upload)
       };
     }
     case SET_ALL_FINISHED_PHOTOS: {
-      const { allPhotos } = action;
+      debugger;
+      const { allFinishedPhotos } = action;
       return {
         ...state,
-        finishedPhotos: allPhotos
+        finishedPhotos: allFinishedPhotos
       };
     }
     case ADD_FINISHED_PHOTO: {
-      const { singlePhoto } = action;
+      const { photo } = action;
       const { finishedPhotos } = state;
       return {
         ...state,
-        finishedPhotos: finishedPhotos.concat(singlePhoto)
+        finishedPhotos: finishedPhotos.concat(photo)
       };
     }
     default:
