@@ -142,8 +142,9 @@ export const splashStyles = makeStyles(() => ({
   splashContent: {
     display: "flex",
     flexDirection: "column",
-    margin: "5rem",
-    maxWidth: "50vw"
+    margin: "4rem",
+    maxWidth: "50vw",
+    paddingTop: "1rem"
   },
   loginButton: {
     borderRadius: "50px",

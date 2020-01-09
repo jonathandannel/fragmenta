@@ -78,7 +78,6 @@ const Edit = ({ userImages }) => {
     const detectionsWithLandmarks = await faceapi
       .detectSingleFace(niceImage)
       .withFaceLandmarks();
-    // .withFaceExpressions();
 
     if (!detectionsWithLandmarks) {
       setError(true);
@@ -102,8 +101,7 @@ const Edit = ({ userImages }) => {
 
     const detectionsWithLandmarks = await faceapi
       .detectSingleFace(videoRef.current)
-      .withFaceLandmarks()
-      .withFaceExpressions();
+      .withFaceLandmarks();
 
     if (!detectionsWithLandmarks) {
       setError(true);
