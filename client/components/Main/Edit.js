@@ -204,6 +204,9 @@ const Edit = ({ userImages }) => {
               ref: videoRef,
               width: 720,
               height: 576,
+              style: {
+                objectFit: "contain"
+              },
               autoPlay: true,
               muted: true
             })
