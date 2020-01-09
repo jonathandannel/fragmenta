@@ -118,6 +118,11 @@ const Edit = ({ userImages }) => {
     faceapi.draw.drawFaceLandmarks(webcamCanvasRef.current, resizedResults);
   };
 
+  const takeWebcamPhoto = () => {
+    const a = videoRef;
+    debugger;
+  };
+
   return !modelsLoaded
     ? h(LoadingSpinner, { className: styles.spinner })
     : h(
@@ -170,7 +175,7 @@ const Edit = ({ userImages }) => {
                 variant: "extended",
                 color: "secondary",
                 className: styles.fab,
-                onClick: () => null
+                onClick: takeWebcamPhoto
               },
               h(CameraAlt, { className: styles.fabIcon }),
               "Take photo"
@@ -205,7 +210,7 @@ const Edit = ({ userImages }) => {
               width: 720,
               height: 576,
               style: {
-                objectFit: "contain"
+                objectFit: "cover"
               },
               autoPlay: true,
               muted: true
