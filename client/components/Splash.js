@@ -5,7 +5,8 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogContentText
+  DialogContentText,
+  Fab
 } from "@material-ui/core";
 
 import { splashStyles } from "./styles";
@@ -22,31 +23,34 @@ const Splash = () => {
   return h(
     "main",
     { className: styles.main },
+    h("div", { className: styles.splashImage }),
     h(
       "div",
       {
         className: styles.splashContent
       },
-      h(Typography, { variant: "h1" }, "Create freely."),
+      h(Typography, { variant: "h1" }, "Travel document photos, simplified."),
       h(
         "div",
         {
           className: styles.loginActions
         },
         h(
-          Button,
+          Fab,
           {
             variant: "contained",
+            className: styles.loginButton,
             color: "primary",
             onClick: () => setRegisterDialog(true)
           },
           "Register"
         ),
         h(
-          Button,
+          Fab,
           {
             variant: "contained",
             color: "primary",
+            className: styles.loginButton,
             onClick: () => setLoginDialog(true)
           },
           "Login"

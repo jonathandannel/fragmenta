@@ -124,18 +124,33 @@ export const splashStyles = makeStyles(() => ({
     marginTop: "5.5rem",
     minHeight: "50vh"
   },
+  splashImage: {
+    backgroundImage: `url('images/faces.svg')`,
+    height: "600px",
+    width: "50vw",
+    alignSelf: "center",
+    backgroundRepeat: "no-repeat"
+  },
   loginActions: {
-    width: 250,
+    width: "100%",
     display: "flex",
     alignSelf: "center",
-    justifyContent: "space-evenly",
+    justifyContent: "center",
     marginTop: "3rem",
-    transform: "translateX(-1rem)"
+    transform: "translateX(-75px)"
   },
   splashContent: {
     display: "flex",
-    marginTop: "2rem",
-    flexDirection: "column"
+    flexDirection: "column",
+    margin: "5rem",
+    maxWidth: "50vw"
+  },
+  loginButton: {
+    borderRadius: "50px",
+    width: "200px",
+    height: "75px",
+    marginRight: "3rem",
+    fontSize: "larger"
   },
   alreadyHave: { textDecoration: "none" },
   alreadyHaveA: { textDecoration: "none" }
