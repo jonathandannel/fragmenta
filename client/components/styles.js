@@ -121,7 +121,7 @@ export const splashStyles = makeStyles(() => ({
     justifyContent: "center",
     alignSelf: "center",
     display: "flex",
-    marginTop: "5.5rem",
+    marginTop: "4rem",
     minHeight: "50vh"
   },
   splashImage: {
@@ -142,8 +142,8 @@ export const splashStyles = makeStyles(() => ({
   splashContent: {
     display: "flex",
     flexDirection: "column",
-    margin: "4rem",
-    maxWidth: "50vw",
+    margin: "3rem",
+    maxWidth: "33vw",
     paddingTop: "1rem"
   },
   loginButton: {

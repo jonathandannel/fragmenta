@@ -90,6 +90,7 @@ const Login = ({ setUser, setJwt, history, closeLogin, openRegister }) => {
           "a",
           {
             className: styles.alreadyHaveA,
+            style: { textDecoration: "none" },
             href: "#",
             onClick: () => {
               closeLogin();

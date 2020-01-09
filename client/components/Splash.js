@@ -29,7 +29,14 @@ const Splash = () => {
       {
         className: styles.splashContent
       },
-      h(Typography, { variant: "h1" }, "Travel document photos, simplified."),
+      h(
+        Typography,
+        {
+          style: { fontSize: "5.75rem", paddingBottom: "1rem" },
+          variant: "h1"
+        },
+        "Travel document photos, simplified."
+      ),
       h(
         "div",
         {

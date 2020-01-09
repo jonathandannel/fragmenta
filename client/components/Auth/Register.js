@@ -97,6 +97,7 @@ const Register = ({ closeRegister, openLogin }) => {
           "a",
           {
             className: styles.alreadyHaveA,
+            style: { textDecoration: "none" },
             href: "#",
             onClick: () => {
               closeRegister();
