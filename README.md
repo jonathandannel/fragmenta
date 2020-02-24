@@ -36,7 +36,7 @@
   ![Feature detection](https://github.com/jonathandannel/myriad/blob/master/doc/Screenshot%20from%202020-02-24%2016-22-00.png?raw=true)
 - Real time facial feature detection via webcam stream
   ![Real time webcam detection 2](https://github.com/jonathandannel/myriad/blob/master/doc/Screenshot%20from%202020-02-24%2016-33-29.png?raw=true)
-  ![Real time webcam detection 1](https://github.com/jonathandannel/myriad/blob/master/doc/Screenshot%20from%202020-02-24%2016-22-00.png?raw=true)
+  ![Real time webcam detection 1](https://github.com/jonathandannel/myriad/blob/master/doc/Screenshot%20from%202020-02-24%2016-33-20.png?raw=true)
 
 # TODO
 
